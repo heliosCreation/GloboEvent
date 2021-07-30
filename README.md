@@ -1,2 +1,2 @@
 # GloboEvent
-Event Booking application release with clean architecture
+Event Booking application built following clean architecture principles in .Net
