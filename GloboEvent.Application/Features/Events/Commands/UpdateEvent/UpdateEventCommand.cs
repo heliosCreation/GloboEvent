@@ -3,10 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace GloboEvent.Application.Features.Events.Commands.CreateEvent
+namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
 {
-    public class CreateEventCommand : IRequest<Guid>
+    public class UpdateEventCommand : IRequest
     {
+        public Guid EventId { get; set; }
+
         public string Name { get; set; }
 
         public int Price { get; set; }
@@ -20,10 +22,5 @@ namespace GloboEvent.Application.Features.Events.Commands.CreateEvent
         public string ImageUrl { get; set; }
 
         public Guid CategoryId { get; set; }
-
-        public override string ToString()
-        {
-            return $"Name: {Name}, Price: {Price}, Artist: {Artist}, On: {Date.ToShortDateString()}, Description:{Description}";
-        }
     }
 }

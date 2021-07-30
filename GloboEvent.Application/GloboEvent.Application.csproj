@@ -16,9 +16,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Categories\Commands\" />
-    <Folder Include="Features\Events\Commands\CreateEvent\" />
-    <Folder Include="Features\Events\Commands\DeleteEvent\" />
-    <Folder Include="Features\Events\Commands\UpdateEvent\" />
     <Folder Include="Features\Order\Commands\" />
     <Folder Include="Features\Order\Queries\" />
   </ItemGroup>
