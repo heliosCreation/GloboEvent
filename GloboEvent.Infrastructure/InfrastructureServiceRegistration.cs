@@ -1,5 +1,6 @@
 ﻿using GloboEvent.Application.Contrats.Infrastructure;
 using GloboEvent.Application.Model.Mail;
+using GloboEvent.Infrastructure.FileExport;
 using GloboEvent.Infrastructure.Mail;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,8 +16,8 @@ namespace GloboEvent.Infrastructure
         {
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
 
-            services.AddScoped<IEmailService, EmailService>();
-
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<ICsvExporterService, CsvExporterService>();
             return services;
         }
     }

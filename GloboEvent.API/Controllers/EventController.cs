@@ -2,6 +2,7 @@
 using GloboEvent.Application.Features.Events.Commands.DeleteEvent;
 using GloboEvent.Application.Features.Events.Commands.UpdateEvent;
 using GloboEvent.Application.Features.Events.Queries.GetEventDetails;
+using GloboEvent.Application.Features.Events.Queries.GetEventExport;
 using GloboEvent.Application.Features.Events.Queries.GetEventList;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,6 +32,13 @@ namespace GloboEvent.API.Controllers
         {
             var @event = await Mediator.Send(new GetEventDetailsQuery(id));
             return Ok(@event);
+        }
+
+        [HttpGet("export",Name = "ExportEvents")]
+        public async Task<FileResult>ExportEventsToCsv()
+        {
+            var fileDto = await Mediator.Send(new GetEventExportQuery());
+            return File(fileDto.Data, fileDto.ContentType, fileDto.EventExportFileName);
         }
 
         // POST api/<EventController>
