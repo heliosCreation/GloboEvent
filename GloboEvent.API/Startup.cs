@@ -40,6 +40,11 @@ namespace GloboEvent.API
             services.AddInfrastructureServices(Configuration);
             services.AddPersistenceService(Configuration);
             services.AddControllers();
+
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("Open", builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +58,8 @@ namespace GloboEvent.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("Open");
 
             app.UseAuthorization();
 
