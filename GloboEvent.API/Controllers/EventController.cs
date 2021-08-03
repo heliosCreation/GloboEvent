@@ -1,4 +1,5 @@
-﻿using GloboEvent.Application.Features.Events.Commands.CreateEvent;
+﻿using GloboEvent.API.Attributes;
+using GloboEvent.Application.Features.Events.Commands.CreateEvent;
 using GloboEvent.Application.Features.Events.Commands.DeleteEvent;
 using GloboEvent.Application.Features.Events.Commands.UpdateEvent;
 using GloboEvent.Application.Features.Events.Queries.GetEventDetails;
@@ -35,10 +36,11 @@ namespace GloboEvent.API.Controllers
         }
 
         [HttpGet("export",Name = "ExportEvents")]
+        [FileResultContentType("text/csv")]
         public async Task<FileResult>ExportEventsToCsv()
         {
             var fileDto = await Mediator.Send(new GetEventExportQuery());
-            return File(fileDto.Data, fileDto.ContentType, fileDto.EventExportFileName);
+            return File(fileDto.Data, fileDto.ContentType, fileDto.EventExportFileName +".csv");
         }
 
         // POST api/<EventController>

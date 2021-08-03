@@ -1,3 +1,4 @@
+using GloboEvent.API.Filters;
 using GloboEvent.Application;
 using GloboEvent.Infrastructure;
 using GloboEvent.Persistence;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,9 @@ namespace GloboEvent.API
 {
     public class Startup
     {
+
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
@@ -31,11 +36,10 @@ namespace GloboEvent.API
             Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            AddSwagger(services);
             services.AddApplicationService();
             services.AddInfrastructureServices(Configuration);
             services.AddPersistenceService(Configuration);
@@ -59,6 +63,13 @@ namespace GloboEvent.API
 
             app.UseRouting();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(opt =>
+            {
+                opt.SwaggerEndpoint("/swagger/v1/swagger.json", "Globo Event Api");
+                opt.RoutePrefix = "";
+            });
+
             app.UseCors("Open");
 
             app.UseAuthorization();
@@ -67,6 +78,22 @@ namespace GloboEvent.API
             {
                 endpoints.MapControllers();
             });
+        }
+
+
+        private void AddSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(opt =>
+            {
+                opt.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "GloboEvent Api",
+                });
+
+                opt.OperationFilter<FileResultContentTypeOperationFilter>();
+            });
+
         }
     }
 }
