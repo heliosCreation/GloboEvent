@@ -25,7 +25,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboEvent.Infrastructure",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboEvent.API", "GloboEvent.API\GloboEvent.API.csproj", "{8D5C4100-2C14-498E-BE4A-FB19A8FC3731}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GloboEvent.Application.UnitTests", "GloboEvent.Application.UnitTests\GloboEvent.Application.UnitTests.csproj", "{F9B84871-12BD-480E-9FD2-A83283546F83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboEvent.Application.UnitTests", "GloboEvent.Application.UnitTests\GloboEvent.Application.UnitTests.csproj", "{F9B84871-12BD-480E-9FD2-A83283546F83}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboEvent.Persistence.IntegrationTest", "GloboEvent.Persistence.IntegrationTest\GloboEvent.Persistence.IntegrationTest.csproj", "{27B2C1C9-5C88-4A75-B3EB-2889F1F04F0F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GloboEvent.Api.IntegrationTest", "GloboEvent.Api.IntegrationTest\GloboEvent.Api.IntegrationTest.csproj", "{19961D28-FA61-49E7-B5B2-9407BC510B68}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,14 @@ Global
 		{F9B84871-12BD-480E-9FD2-A83283546F83}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9B84871-12BD-480E-9FD2-A83283546F83}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9B84871-12BD-480E-9FD2-A83283546F83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27B2C1C9-5C88-4A75-B3EB-2889F1F04F0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27B2C1C9-5C88-4A75-B3EB-2889F1F04F0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27B2C1C9-5C88-4A75-B3EB-2889F1F04F0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27B2C1C9-5C88-4A75-B3EB-2889F1F04F0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19961D28-FA61-49E7-B5B2-9407BC510B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19961D28-FA61-49E7-B5B2-9407BC510B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19961D28-FA61-49E7-B5B2-9407BC510B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19961D28-FA61-49E7-B5B2-9407BC510B68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +84,8 @@ Global
 		{C76E76C3-1D64-41BC-8A96-B1C4FC35AC03} = {BD2D3BFB-5FDF-447A-91E7-93101D02924C}
 		{8D5C4100-2C14-498E-BE4A-FB19A8FC3731} = {14DB3FC6-AD44-4E5E-9BF6-F34AE1CF1A63}
 		{F9B84871-12BD-480E-9FD2-A83283546F83} = {AC193A92-14C0-40BD-A330-CCE2BDC98B7B}
+		{27B2C1C9-5C88-4A75-B3EB-2889F1F04F0F} = {AC193A92-14C0-40BD-A330-CCE2BDC98B7B}
+		{19961D28-FA61-49E7-B5B2-9407BC510B68} = {AC193A92-14C0-40BD-A330-CCE2BDC98B7B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7BBF561-AF93-4B43-BBAB-1C3F4DD01DF5}

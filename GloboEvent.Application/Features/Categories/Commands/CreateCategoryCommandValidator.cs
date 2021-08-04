@@ -1,8 +1,6 @@
 ﻿using FluentValidation;
 using GloboEvent.Application.Contrats.Persistence;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,7 +19,7 @@ namespace GloboEvent.Application.Features.Categories.Commands
                 .NotEmpty().WithMessage("{PropertyName} is required");
 
             RuleFor(e => e)
-                .MustAsync(IsNameUnique).WithMessage("A category with this given name already exists.");
+                .MustAsync(IsNameUnique).WithMessage("A category with the same given name already exists.");
         }
 
         private async Task<bool> IsNameUnique(CreateCategoryCommand e, CancellationToken c)

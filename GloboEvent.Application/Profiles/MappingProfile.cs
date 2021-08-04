@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GloboEvent.Application.Features.Categories.Commands;
 using GloboEvent.Application.Features.Categories.Queries.GetCategoriesList;
 using GloboEvent.Application.Features.Categories.Queries.GetCategoriesListWithEvent;
 using GloboEvent.Application.Features.Events.Commands.CreateEvent;
@@ -18,13 +19,15 @@ namespace GloboEvent.Application.Profiles
             CreateMap<Event, EventListVm>().ReverseMap();
             CreateMap<Event, EventDetailVm>().ReverseMap();
             CreateMap<Event, EventExportDto>().ReverseMap();
+            CreateMap<Event, CategoryEventDto>().ReverseMap();
             CreateMap<CreateEventCommand, Event>().ReverseMap();
             CreateMap<UpdateEventCommand, Event>();
 
             CreateMap<Category, CategoryDto>();
             CreateMap<Category, CategoryListVm>();
             CreateMap<Category, CategoryWithEventListVm>();
-            CreateMap<Category, CategoryListVm>();
+            CreateMap<Category, CreateCategoryCommand>();
+            CreateMap<Category, CreateCategoryDto>();
         }
     }
 }

@@ -1,9 +1,12 @@
 using GloboEvent.API.Filters;
+using GloboEvent.API.Services;
 using GloboEvent.Application;
+using GloboEvent.Application.Contrats;
 using GloboEvent.Infrastructure;
 using GloboEvent.Persistence;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -43,6 +46,10 @@ namespace GloboEvent.API
             services.AddApplicationService();
             services.AddInfrastructureServices(Configuration);
             services.AddPersistenceService(Configuration);
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<ILoggedInUserService, LoggedInUserService>();
+
             services.AddControllers();
 
             services.AddCors(opt =>
