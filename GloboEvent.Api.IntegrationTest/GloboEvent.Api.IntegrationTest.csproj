@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\GloboEvent.API\GloboEvent.API.csproj" />
     <ProjectReference Include="..\GloboEvent.Application\GloboEvent.Application.csproj" />
     <ProjectReference Include="..\GloboEvent.Domain\GloboEvent.Domain.csproj" />
     <ProjectReference Include="..\GloboEvent.Infrastructure\GloboEvent.Infrastructure.csproj" />

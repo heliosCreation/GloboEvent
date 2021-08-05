@@ -2,22 +2,17 @@ using GloboEvent.API.Filters;
 using GloboEvent.API.Services;
 using GloboEvent.Application;
 using GloboEvent.Application.Contrats;
+using GloboEvent.Identity;
 using GloboEvent.Infrastructure;
 using GloboEvent.Persistence;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GloboEvent.API
 {
@@ -46,6 +41,7 @@ namespace GloboEvent.API
             services.AddApplicationService();
             services.AddInfrastructureServices(Configuration);
             services.AddPersistenceService(Configuration);
+            services.AddIdentityServices(Configuration);
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ILoggedInUserService, LoggedInUserService>();
@@ -92,12 +88,40 @@ namespace GloboEvent.API
         {
             services.AddSwaggerGen(opt =>
             {
-                opt.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "GloboEvent Api",
-                });
+                opt.SwaggerDoc(
+                    "v1",
+                    new OpenApiInfo
+                    {
+                        Version = "v1",
+                        Title = "Globo Event - WebApi",
+                        Description = "This Api will be responsible for overall data distribution and authorization.",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "HeliosCreation",
+                            Email = "reliableDevelopment@hotmail.com",
+                        }
+                    });
 
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "JWT Authentication",
+                    Description = "Enter JWT Bearer token **_only_**",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer", // must be lower case
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                opt.AddSecurityDefinition(securityScheme.Reference.Id, securityScheme);
+                opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {securityScheme, new string[] { }}
+                });
                 opt.OperationFilter<FileResultContentTypeOperationFilter>();
             });
 

@@ -13,10 +13,10 @@ namespace GloboEvent.Persistence
     {
         public static IServiceCollection AddPersistenceService(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<GloboEventDbContext>(opt =>
-            {
-                opt.UseSqlServer(configuration.GetConnectionString("GloboEventDataConnectionString"));
-            });
+            services.AddDbContext<GloboEventDbContext>(
+                opt => opt.UseSqlServer(configuration.GetConnectionString("GloboEventDataConnectionString"),
+                b => b.MigrationsAssembly(typeof(GloboEventDbContext).Assembly.FullName))
+            );
 
             services.AddScoped(typeof(IAsyncRepository<>), typeof(BaseRepository<>));
             services.AddScoped<ICategoryRepository, CategoryRepository>();

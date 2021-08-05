@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.8">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GloboEvent.Application\GloboEvent.Application.csproj" />
+    <ProjectReference Include="..\GloboEvent.Identity\GloboEvent.Identity.csproj" />
     <ProjectReference Include="..\GloboEvent.Infrastructure\GloboEvent.Infrastructure.csproj" />
     <ProjectReference Include="..\GloboEvent.Persistence\GloboEvent.Persistence.csproj" />
   </ItemGroup>
