@@ -1,5 +1,6 @@
 ﻿using GloboEvent.Application.Contracts.Identity;
 using GloboEvent.Application.Model.Authentification;
+using GloboEvent.Application.Responses;
 using GloboEvent.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
@@ -30,25 +31,26 @@ namespace GloboEvent.Identity.Services
             _signInManager = signInManager;
         }
 
-        public async Task<AuthenticationResponse> AuthenticateAsync(AuthenticationRequest request)
+        public async Task<ApiResponse<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request)
         {
+            var response = new ApiResponse<AuthenticationResponse>();
             var user = await _userManager.FindByEmailAsync(request.Email);
 
             if (user == null)
             {
-                throw new Exception($"User with {request.Email} not found.");
+                return response.setNotFoundResponse();
             }
 
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
 
             if (!result.Succeeded)
             {
-                throw new Exception($"Credentials for '{request.Email} aren't valid'.");
+                return response.SetBadRequestResponse();
             }
 
             JwtSecurityToken jwtSecurityToken = await GenerateToken(user);
 
-            AuthenticationResponse response = new AuthenticationResponse
+            response.Data = new AuthenticationResponse
             {
                 Id = user.Id,
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
@@ -59,13 +61,14 @@ namespace GloboEvent.Identity.Services
             return response;
         }
 
-        public async Task<RegistrationResponse> RegisterAsync(RegistrationRequest request)
+        public async Task<ApiResponse<RegistrationResponse>> RegisterAsync(RegistrationRequest request)
         {
+            var response = new ApiResponse<RegistrationResponse>();
             var existingUser = await _userManager.FindByNameAsync(request.UserName);
 
             if (existingUser != null)
             {
-                throw new Exception($"Username '{request.UserName}' already exists.");
+                return response.SetBadRequestResponse();
             }
 
             var user = new ApplicationUser
@@ -85,16 +88,17 @@ namespace GloboEvent.Identity.Services
 
                 if (result.Succeeded)
                 {
-                    return new RegistrationResponse() { UserId = user.Id };
+                    response.Data = new RegistrationResponse() { UserId = user.Id };
+                    return response;
                 }
                 else
                 {
-                    throw new Exception($"{result.Errors}");
+                    return response.SetInternalServerErrorResponse();
                 }
             }
             else
             {
-                throw new Exception($"Email {request.Email } already exists.");
+                return response.SetBadRequestResponse();
             }
         }
 
