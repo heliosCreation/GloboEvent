@@ -2,7 +2,7 @@
 
 namespace GloboEvent.Application.Features.Categories.Commands
 {
-    public class CreateCategoryCommandResponse : BaseResponse
+    public class CreateCategoryCommandResponse : ApiResponse
     {
         public CreateCategoryCommandResponse() : base()
         {
