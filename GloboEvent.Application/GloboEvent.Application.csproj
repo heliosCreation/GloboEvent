@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Features\Order\**" />
+    <EmbeddedResource Remove="Features\Order\**" />
+    <None Remove="Features\Order\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GloboEvent.Domain\GloboEvent.Domain.csproj" />
   </ItemGroup>
 
@@ -14,11 +20,6 @@
     <PackageReference Include="FluentValidation" Version="10.3.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Order\Commands\" />
-    <Folder Include="Features\Order\Queries\" />
   </ItemGroup>
 
 </Project>
