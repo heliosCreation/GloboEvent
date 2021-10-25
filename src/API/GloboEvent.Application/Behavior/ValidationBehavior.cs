@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using GloboEvent.Application.Contracts.Signature;
 using GloboEvent.Application.Responses;
 using MediatR;
 using System.Collections.Generic;
@@ -11,8 +10,8 @@ using System.Threading.Tasks;
 namespace GloboEvent.Application.Behavior
 {
     public class ValidationBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-               where TRequest : IValidatable
-               where TResponse : ApiResponse<TResponse>, new()
+            where TRequest : IRequest<TResponse>
+            where TResponse : BaseResponse, new()
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 

@@ -21,7 +21,7 @@ namespace GloboEvent.API.Controllers
         [HttpGet("all", Name = "Get all Event")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult<List<EventListVm>>> Get()
+        public async Task<IActionResult> Get()
         {
             var dtos = await Mediator.Send(new GetEventListQuery());
             return Ok(dtos);
@@ -29,7 +29,7 @@ namespace GloboEvent.API.Controllers
 
         // GET api/<EventController>/5
         [HttpGet("{id}", Name = "GetEventById")]
-        public async Task<ActionResult<EventDetailVm>> Get(Guid id)
+        public async Task<IActionResult> Get(Guid id)
         {
             var @event = await Mediator.Send(new GetEventDetailsQuery(id));
             return Ok(@event);
@@ -39,13 +39,13 @@ namespace GloboEvent.API.Controllers
         [FileResultContentType("text/csv")]
         public async Task<FileResult>ExportEventsToCsv()
         {
-            var fileDto = await Mediator.Send(new GetEventExportQuery());
-            return File(fileDto.Data, fileDto.ContentType, fileDto.EventExportFileName +".csv");
+            var response = await Mediator.Send(new GetEventExportQuery());
+            return File(response.Data.Data, response.Data.ContentType, response.Data.EventExportFileName +".csv");
         }
 
         // POST api/<EventController>
         [HttpPost(Name = "AddEvent")]
-        public async Task<ActionResult<Guid>> Create([FromBody] CreateEventCommand command)
+        public async Task<IActionResult> Create([FromBody] CreateEventCommand command)
         {
             var id = await Mediator.Send(command);
             return Ok(id);
@@ -56,7 +56,7 @@ namespace GloboEvent.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> Update([FromBody] UpdateEventCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateEventCommand command)
         {
             await Mediator.Send(command);
             return NoContent();
@@ -67,7 +67,7 @@ namespace GloboEvent.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<ActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             await Mediator.Send(new DeleteEventCommand(id));
             return NoContent();

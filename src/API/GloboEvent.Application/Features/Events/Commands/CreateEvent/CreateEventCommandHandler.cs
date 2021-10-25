@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GloboEvent.Application.Contracts.Signature;
 using GloboEvent.Application.Contrats.Infrastructure;
 using GloboEvent.Application.Contrats.Persistence;
 using GloboEvent.Application.Model.Mail;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace GloboEvent.Application.Features.Events.Commands.CreateEvent
 {
-    public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, ApiResponse<CreateEventResponse>>
+    public class CreateEventCommandHandler : IRequestHandler<CreateEventCommand, ApiResponse<CreateEventResponse>>, IValidatable
     {
         private readonly IMapper _mapper;
         private readonly IEventRepository _eventRepository;

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GloboEvent.Application.Contracts.Signature;
 using GloboEvent.Application.Contrats.Persistence;
 using GloboEvent.Application.Responses;
 using GloboEvent.Domain.Entities;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GloboEvent.Application.Features.Categories.Commands
 {
-    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, ApiResponse<CreateCategoryDto>>
+    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, ApiResponse<CreateCategoryDto>>, IValidatable
     {
         private readonly IMapper _mapper;
         private readonly ICategoryRepository _categoryRepository;

@@ -1,3 +1,4 @@
+using FluentValidation;
 using GloboEvent.API.Filters;
 using GloboEvent.API.Services;
 using GloboEvent.Application;
@@ -39,6 +40,8 @@ namespace GloboEvent.API
         {
             AddSwagger(services);
             services.AddApplicationService();
+            services.AddValidatorsFromAssembly(typeof(Startup).Assembly);
+
             services.AddInfrastructureServices(Configuration);
             services.AddPersistenceService(Configuration);
             services.AddIdentityServices(Configuration);
@@ -46,7 +49,7 @@ namespace GloboEvent.API
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<ILoggedInUserService, LoggedInUserService>();
 
-            services.AddControllers();
+            services.AddControllers(o => o.Filters.Add(typeof(ResponseMappingFilter)));
 
             services.AddCors(opt =>
             {

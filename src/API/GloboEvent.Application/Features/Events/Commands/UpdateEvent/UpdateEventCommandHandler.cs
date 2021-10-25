@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using GloboEvent.Application.Contracts.Signature;
 using GloboEvent.Application.Contrats.Persistence;
 using GloboEvent.Application.Responses;
 using GloboEvent.Domain.Entities;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
 {
-    public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand, ApiResponse<object>>
+    public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand, ApiResponse<object>>, IValidatable
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<Event> _eventRepository;
