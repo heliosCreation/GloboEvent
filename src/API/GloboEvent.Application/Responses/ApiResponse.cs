@@ -33,6 +33,14 @@ namespace GloboEvent.Application.Responses
         public T Data { get; set; }
 
         public List<T> DataList { get; set; }
+
+
+        public ApiResponse<T> setNotFoundResponse()
+        {
+            Succeeded = false;
+            StatusCode = (int)HttpStatusCode.NotFound;
+            return this; 
+        }
     }
 
 }

@@ -19,13 +19,13 @@ namespace GloboEvent.Application.Profiles
             CreateMap<Event, EventListVm>().ReverseMap();
             CreateMap<Event, EventDetailVm>().ReverseMap();
             CreateMap<Event, EventExportDto>().ReverseMap();
-            CreateMap<Event, CategoryEventDto>().ReverseMap();
+            CreateMap<Event, EventDto>().ReverseMap();
             CreateMap<CreateEventCommand, Event>().ReverseMap();
             CreateMap<UpdateEventCommand, Event>();
 
             CreateMap<Category, CategoryDto>();
-            CreateMap<Category, CategoryListVm>();
-            CreateMap<Category, CategoryWithEventListVm>();
+            CreateMap<Category, CategoryVm>();
+            CreateMap<Category, CategoryWithEventsVm>();
             CreateMap<Category, CreateCategoryCommand>();
             CreateMap<Category, CreateCategoryDto>();
         }

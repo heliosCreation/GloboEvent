@@ -1,11 +1,9 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GloboEvent.Application.Responses;
+using MediatR;
 
 namespace GloboEvent.Application.Features.Categories.Queries.GetCategoriesList
 {
-    public class GetCategoriesListQuery : IRequest<List<CategoryListVm>>
+    public class GetCategoriesListQuery : IRequest<ApiResponse<CategoryVm>>
     {
     }
 }

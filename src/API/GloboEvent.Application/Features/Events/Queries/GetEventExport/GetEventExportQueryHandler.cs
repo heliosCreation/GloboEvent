@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using GloboEvent.Application.Contrats.Infrastructure;
 using GloboEvent.Application.Contrats.Persistence;
+using GloboEvent.Application.Responses;
 using GloboEvent.Domain.Entities;
 using MediatR;
 using System;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 namespace GloboEvent.Application.Features.Events.Queries.GetEventExport
 {
 
-    public class GetEventExportQueryHandler : IRequestHandler<GetEventExportQuery, EventExportFileVm>
+    public class GetEventExportQueryHandler : IRequestHandler<GetEventExportQuery, ApiResponse<EventExportFileVm>>
     {
         private readonly IAsyncRepository<Event> _eventRepository;
         private readonly ICsvExporterService _csvExporter;
@@ -29,16 +30,18 @@ namespace GloboEvent.Application.Features.Events.Queries.GetEventExport
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public async Task<EventExportFileVm> Handle(GetEventExportQuery request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<EventExportFileVm>> Handle(GetEventExportQuery request, CancellationToken cancellationToken)
         {
+            var response = new ApiResponse<EventExportFileVm>();
             var eventDto = _mapper.Map<List<EventExportDto>>((await _eventRepository.ListAllAsync()).OrderBy(e => e.Date));
             var csv = _csvExporter.ExportEventToCsv(eventDto);
-            return new EventExportFileVm
-            {
-                EventExportFileName = $"Current list of event as for {DateTime.Today}",
-                ContentType = "text/csv",
-                Data = csv
-            };
+            response.Data = new EventExportFileVm
+                            {
+                            EventExportFileName = $"Current list of event as for {DateTime.Today}",
+                            ContentType = "text/csv",
+                            Data = csv
+                            };
+            return response;
         }
     }
 }

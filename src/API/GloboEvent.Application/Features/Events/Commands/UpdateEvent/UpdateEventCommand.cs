@@ -1,9 +1,10 @@
-﻿using MediatR;
+﻿using GloboEvent.Application.Responses;
+using MediatR;
 using System;
 
 namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
 {
-    public class UpdateEventCommand : IRequest
+    public class UpdateEventCommand : IRequest<ApiResponse<object>>
     {
         public Guid EventId { get; set; }
 
