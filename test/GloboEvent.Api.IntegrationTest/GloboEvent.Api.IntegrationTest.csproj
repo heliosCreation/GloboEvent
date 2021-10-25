@@ -1,10 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-
-    <IsPackable>false</IsPackable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<NoWin32Manifest>true</NoWin32Manifest>
+	</PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.8" />
@@ -24,11 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GloboEvent.API\GloboEvent.API.csproj" />
-    <ProjectReference Include="..\GloboEvent.Application\GloboEvent.Application.csproj" />
-    <ProjectReference Include="..\GloboEvent.Domain\GloboEvent.Domain.csproj" />
-    <ProjectReference Include="..\GloboEvent.Infrastructure\GloboEvent.Infrastructure.csproj" />
-    <ProjectReference Include="..\GloboEvent.Persistence\GloboEvent.Persistence.csproj" />
+    <ProjectReference Include="..\..\src\API\GloboEvent.API\GloboEvent.API.csproj" />
+    <ProjectReference Include="..\..\src\API\GloboEvent.Application\GloboEvent.Application.csproj" />
+    <ProjectReference Include="..\..\src\API\GloboEvent.Domain\GloboEvent.Domain.csproj" />
+    <ProjectReference Include="..\..\src\API\GloboEvent.Infrastructure\GloboEvent.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\API\GloboEvent.Persistence\GloboEvent.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
+using GloboEvent.Application.Contracts.Signature;
 using GloboEvent.Application.Contrats.Persistence;
+using GloboEvent.Application.Responses;
 using GloboEvent.Domain.Entities;
 using MediatR;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
 {
-    public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand>
+    public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand, ApiResponse<object>>, IValidatable
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<Event> _eventRepository;
@@ -24,13 +25,18 @@ namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _eventRepository = eventRepository ?? throw new ArgumentNullException(nameof(eventRepository));
         }
-        public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<object>> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
+            var response = new ApiResponse<object>();
             var eventToUpdate = await _eventRepository.GetByIdAsync(request.EventId);
-             _mapper.Map(request, eventToUpdate, typeof(UpdateEventCommand), typeof(Event));
+            if (eventToUpdate == null)
+            {
+                return response.setNotFoundResponse();
+            }
+            _mapper.Map(request, eventToUpdate, typeof(UpdateEventCommand), typeof(Event));
             await _eventRepository.UpdateAsync(eventToUpdate);
 
-            return Unit.Value;
+            return response;
 
         }
     }

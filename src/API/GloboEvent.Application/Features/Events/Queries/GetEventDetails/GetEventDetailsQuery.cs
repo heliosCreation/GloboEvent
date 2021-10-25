@@ -1,9 +1,10 @@
-﻿using MediatR;
+﻿using GloboEvent.Application.Responses;
+using MediatR;
 using System;
 
 namespace GloboEvent.Application.Features.Events.Queries.GetEventDetails
 {
-    public class GetEventDetailsQuery : IRequest<EventDetailVm>
+    public class GetEventDetailsQuery : IRequest<ApiResponse<EventDetailVm>>
     {
         public GetEventDetailsQuery(Guid id)
         {

@@ -1,9 +1,10 @@
-﻿using MediatR;
+﻿using GloboEvent.Application.Responses;
+using MediatR;
 using System;
 
 namespace GloboEvent.Application.Features.Events.Commands.CreateEvent
 {
-    public class CreateEventCommand : IRequest<Guid>
+    public class CreateEventCommand : IRequest<ApiResponse<CreateEventResponse>>
     {
         public string Name { get; set; }
 

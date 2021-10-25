@@ -1,11 +1,9 @@
-﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GloboEvent.Application.Responses;
+using MediatR;
 
 namespace GloboEvent.Application.Features.Categories.Queries.GetCategoriesListWithEvent
 {
-    public class GetCategoriesListWithEventQuery : IRequest<List<CategoryWithEventListVm>>
+    public class GetCategoriesListWithEventQuery : IRequest<ApiResponse<CategoryWithEventsVm>>
     {
         public bool IncludeHistory { get; set; }
     }

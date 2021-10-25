@@ -2,7 +2,7 @@
 
 namespace GloboEvent.Application.Features.Categories.Queries.GetCategoriesListWithEvent
 {
-    public class CategoryEventDto
+    public class EventDto
     {
         public Guid Id { get; set; }
 

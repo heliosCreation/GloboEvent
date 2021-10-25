@@ -14,7 +14,7 @@ namespace GloboEvent.API.Controllers
     {
         [HttpGet("all", Name = "Get All Categories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<CategoryListVm>>> Get()
+        public async Task<IActionResult> Get()
         {
             var dtos = await Mediator.Send(new GetCategoriesListQuery());
             return Ok(dtos);
@@ -23,7 +23,7 @@ namespace GloboEvent.API.Controllers
         [HttpGet("allWithEvent", Name = "Get All Categories with Event")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<List<CategoryWithEventListVm>>> GetWithEvent(bool includeHistory)
+        public async Task<IActionResult> GetWithEvent(bool includeHistory)
         {
             var dtos = await Mediator.Send(new GetCategoriesListWithEventQuery() { IncludeHistory = includeHistory });
             return Ok(dtos);
@@ -32,7 +32,7 @@ namespace GloboEvent.API.Controllers
         // POST api/<CategoryController>
         [HttpPost("addCategory")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<CreateCategoryCommandResponse>> AddCategory([FromBody] CreateCategoryCommand command)
+        public async Task<IActionResult> AddCategory([FromBody] CreateCategoryCommand command)
         {
             var response = await Mediator.Send(command);
             return Ok(response);

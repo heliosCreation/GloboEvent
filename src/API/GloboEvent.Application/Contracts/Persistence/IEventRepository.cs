@@ -7,5 +7,6 @@ namespace GloboEvent.Application.Contrats.Persistence
     public interface IEventRepository : IAsyncRepository<Event>
     {
         Task<bool> IsUniqueNameAndDate(string name, DateTime date);
+        Task<bool> IsUniqueNameAndDateForUpdate(string name, DateTime date, Guid id);
     }
 }

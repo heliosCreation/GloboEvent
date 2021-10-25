@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.Net;
 
 namespace GloboEvent.Application.Responses
 {
@@ -8,26 +7,27 @@ namespace GloboEvent.Application.Responses
     {
         public BaseResponse()
         {
-            Success = true;
+            Succeeded = true;
         }
 
         public BaseResponse(string message = null)
         {
-            Success = true;
+            Succeeded = true;
             Message = message;
         }
 
         public BaseResponse(string message, bool success)
         {
-            Success = success;
+            Succeeded = success;
             Message = message;
         }
 
-        public bool Success { get; set; }
+        public bool Succeeded { get; set; }
 
         public string Message { get; set; }
 
-        public IEnumerable<string> ErrorMessages { get; set; }
-    }
+        public int StatusCode { get; set; } = (int)HttpStatusCode.OK;
 
+        public List<string> ErrorMessages { get; set; }
+    }
 }

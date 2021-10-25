@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GloboEvent.Application.Features.Events.Queries.GetEventExport
+﻿namespace GloboEvent.Application.Features.Events.Queries.GetEventExport
 {
     public class EventExportFileVm
     {
