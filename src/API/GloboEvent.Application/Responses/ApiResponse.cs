@@ -17,5 +17,19 @@ namespace GloboEvent.Application.Responses
             StatusCode = (int)HttpStatusCode.NotFound;
             return this;
         }
+
+        public ApiResponse<T> SetBadRequestResponse()
+        {
+            Succeeded = false;
+            StatusCode = (int)HttpStatusCode.BadRequest;
+            return this;
+        }
+
+        public ApiResponse<T> SetInternalServerErrorResponse()
+        {
+            Succeeded = false;
+            StatusCode = (int)HttpStatusCode.InternalServerError;
+            return this;
+        }
     }
 }
