@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.1.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GloboEvent.Application\GloboEvent.Application.csproj" />
+    <ProjectReference Include="..\GloboEvent.Identity\GloboEvent.Identity.csproj" />
+    <ProjectReference Include="..\GloboEvent.Infrastructure\GloboEvent.Infrastructure.csproj" />
+    <ProjectReference Include="..\GloboEvent.Persistence\GloboEvent.Persistence.csproj" />
+  </ItemGroup>
+
+
+</Project>
