@@ -15,13 +15,13 @@ namespace GloboEvent.Persistence.Repositories
         public async Task<bool> IsUniqueNameAndDate(string name, DateTime date)
         {
             var matches = await _dbContext.Events.AnyAsync(e => e.Name.Equals(name) && e.Date.Equals(date));
-            return matches;
+            return matches == false;
         }
 
         public async Task<bool> IsUniqueNameAndDateForUpdate(string name, DateTime date, Guid id)
         {
             var matches = await _dbContext.Events.AnyAsync(e => e.Name.Equals(name) && e.Date.Equals(date) && e.Id != id);
-            return matches;
+            return matches == false;
         }
     }
 }

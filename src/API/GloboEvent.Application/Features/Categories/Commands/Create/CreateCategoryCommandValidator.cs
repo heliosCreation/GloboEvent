@@ -4,7 +4,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GloboEvent.Application.Features.Categories.Commands
+namespace GloboEvent.Application.Features.Categories.Commands.Create
 {
     public class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCommand>
     {

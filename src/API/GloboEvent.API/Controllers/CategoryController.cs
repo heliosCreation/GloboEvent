@@ -1,12 +1,12 @@
-﻿using GloboEvent.Application.Features.Categories.Commands;
+﻿using GloboEvent.Application.Features.Categories.Commands.Create;
+using GloboEvent.Application.Features.Categories.Commands.Delete;
+using GloboEvent.Application.Features.Categories.Commands.Update;
 using GloboEvent.Application.Features.Categories.Queries.GetCategoriesList;
 using GloboEvent.Application.Features.Categories.Queries.GetCategoriesListWithEvent;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GloboEvent.API.Controllers
 {
@@ -28,20 +28,32 @@ namespace GloboEvent.API.Controllers
             var dtos = await Mediator.Send(new GetCategoriesListWithEventQuery() { IncludeHistory = includeHistory });
             return Ok(dtos);
         }
-        
-        // POST api/<CategoryController>
+
         [HttpPost("addCategory")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddCategory([FromBody] CreateCategoryCommand command)
         {
             var response = await Mediator.Send(command);
             return Ok(response);
         }
 
-        // PUT api/<CategoryController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> Put([FromBody] UpdateCategoryCommand command)
         {
+            return Ok(await Mediator.Send(command));
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<IActionResult> Delete([FromBody] DeleteCategoryCommand command)
+        {
+            return Ok(await Mediator.Send(command));
         }
     }
 }

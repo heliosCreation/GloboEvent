@@ -17,7 +17,6 @@ namespace GloboEvent.API.Controllers
 {
     public class EventController : ApiController
     {
-        // GET: api/<EventController>
         [HttpGet("all", Name = "Get all Event")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
@@ -27,7 +26,6 @@ namespace GloboEvent.API.Controllers
             return Ok(dtos);
         }
 
-        // GET api/<EventController>/5
         [HttpGet("{id}", Name = "GetEventById")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -43,7 +41,6 @@ namespace GloboEvent.API.Controllers
             return File(response.Data.Data, response.Data.ContentType, response.Data.EventExportFileName +".csv");
         }
 
-        // POST api/<EventController>
         [HttpPost(Name = "AddEvent")]
         public async Task<IActionResult> Create([FromBody] CreateEventCommand command)
         {
@@ -51,9 +48,8 @@ namespace GloboEvent.API.Controllers
             return Ok(id);
         }
 
-        // PUT api/<EventController>/5
         [HttpPut(Name ="Update Event")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Update([FromBody] UpdateEventCommand command)
@@ -62,9 +58,8 @@ namespace GloboEvent.API.Controllers
             return NoContent();
         }
 
-        // DELETE api/<EventController>/5
         [HttpDelete("{id}", Name = "Delete Event")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Delete(Guid id)

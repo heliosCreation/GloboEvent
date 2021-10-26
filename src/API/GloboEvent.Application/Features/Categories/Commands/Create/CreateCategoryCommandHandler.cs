@@ -8,9 +8,9 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GloboEvent.Application.Features.Categories.Commands
+namespace GloboEvent.Application.Features.Categories.Commands.Create
 {
-    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, ApiResponse<CreateCategoryDto>>, IValidatable
+    public class CreateCategoryCommandHandler : IRequestHandler<CreateCategoryCommand, ApiResponse<CategoryVm>>
     {
         private readonly IMapper _mapper;
         private readonly ICategoryRepository _categoryRepository;
@@ -23,11 +23,11 @@ namespace GloboEvent.Application.Features.Categories.Commands
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
-        public async Task<ApiResponse<CreateCategoryDto>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<CategoryVm>> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
-            var response = new ApiResponse<CreateCategoryDto>();
+            var response = new ApiResponse<CategoryVm>();
             var createdCategory = await _categoryRepository.AddAsync(new Category { Name = request.Name });
-            response.Data = _mapper.Map<CreateCategoryDto>(createdCategory);
+            response.Data = _mapper.Map<CategoryVm>(createdCategory);
             return response;
         }
     }

@@ -33,16 +33,6 @@ namespace GloboEvent.Application.Features.Events.Commands.CreateEvent
             var @event = _mapper.Map<Event>(request);
             @event = await _eventRepository.AddAsync(@event);
             response.Data = new CreateEventResponse { Id = @event.Id };
-            try
-            {
-                var email = new Email { To = "quentin.coui@hotmail.com", Body = $"A new Event was created: {request}", Subject = "New event created" };
-                await _emailService.SendMail(email);
-            }
-            catch (Exception)
-            {
-                //Log something. The mail service is in a try catch because we don't want the application to stop if 
-                //the mail service has a malfunction.
-            }
             return response;
         }
     }

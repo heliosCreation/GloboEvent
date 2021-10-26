@@ -127,7 +127,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "John Egbert",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2022, 2, 5, 10, 10, 51, 367, DateTimeKind.Local).AddTicks(9233),
+                            Date = new DateTime(2022, 4, 26, 11, 54, 39, 14, DateTimeKind.Local).AddTicks(8753),
                             Description = "Join John for his farwell tour across 15 continents. John really needs no introduction since he has already mesmerized the world with his banjo.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/banjo.jpg",
                             Name = "John Egbert Live",
@@ -139,7 +139,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "Michael Johnson",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2022, 5, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(5683),
+                            Date = new DateTime(2022, 7, 26, 11, 54, 39, 17, DateTimeKind.Local).AddTicks(4340),
                             Description = "Michael Johnson doesn't need an introduction. His 25 concert across the globe last year were seen by thousands. Can we add you to the list?",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/michael.jpg",
                             Name = "The State of Affairs: Michael Live!",
@@ -151,7 +151,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "DJ 'The Mike'",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2021, 12, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(5751),
+                            Date = new DateTime(2022, 2, 26, 11, 54, 39, 17, DateTimeKind.Local).AddTicks(4381),
                             Description = "DJs from all over the world will compete in this epic battle for eternal fame.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/dj.jpg",
                             Name = "Clash of the DJs",
@@ -163,7 +163,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "Manuel Santinonisi",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2021, 12, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(5785),
+                            Date = new DateTime(2022, 2, 26, 11, 54, 39, 17, DateTimeKind.Local).AddTicks(4398),
                             Description = "Get on the hype of Spanish Guitar concerts with Manuel.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/guitar.jpg",
                             Name = "Spanish guitar hits with Manuel",
@@ -175,7 +175,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "Many",
                             CategoryId = new Guid("fe98f549-e790-4e9f-aa16-18c2292a2ee9"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2022, 6, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(5816),
+                            Date = new DateTime(2022, 8, 26, 11, 54, 39, 17, DateTimeKind.Local).AddTicks(4413),
                             Description = "The best tech conference in the world",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/conf.jpg",
                             Name = "Techorama 2021",
@@ -187,7 +187,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "Nick Sailor",
                             CategoryId = new Guid("6313179f-7837-473a-a4d5-a5571b43e6a6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2022, 4, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(5848),
+                            Date = new DateTime(2022, 6, 26, 11, 54, 39, 17, DateTimeKind.Local).AddTicks(4430),
                             Description = "The critics are over the moon and so will you after you've watched this sing and dance extravaganza written by Nick Sailor, the man from 'My dad and sister'.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/musical.jpg",
                             Name = "To the Moon and Back",
@@ -227,72 +227,7 @@ namespace GloboEvent.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("7e94bc5b-71a5-4c8c-bc3b-71bb7976237e"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2021, 8, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(7051),
-                            OrderTotal = 400,
-                            UserId = new Guid("a441eb40-9636-4ee6-be49-a66c5ec1330b")
-                        },
-                        new
-                        {
-                            Id = new Guid("86d3a045-b42d-4854-8150-d6a374948b6e"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2021, 8, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(7777),
-                            OrderTotal = 135,
-                            UserId = new Guid("ac3cfaf5-34fd-4e4d-bc04-ad1083ddc340")
-                        },
-                        new
-                        {
-                            Id = new Guid("771cca4b-066c-4ac7-b3df-4d12837fe7e0"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2021, 8, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(7821),
-                            OrderTotal = 85,
-                            UserId = new Guid("d97a15fc-0d32-41c6-9ddf-62f0735c4c1c")
-                        },
-                        new
-                        {
-                            Id = new Guid("3dcb3ea0-80b1-4781-b5c0-4d85c41e55a6"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2021, 8, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(7851),
-                            OrderTotal = 245,
-                            UserId = new Guid("4ad901be-f447-46dd-bcf7-dbe401afa203")
-                        },
-                        new
-                        {
-                            Id = new Guid("e6a2679c-79a3-4ef1-a478-6f4c91b405b6"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2021, 8, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(7878),
-                            OrderTotal = 142,
-                            UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
-                        },
-                        new
-                        {
-                            Id = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2021, 8, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(7908),
-                            OrderTotal = 40,
-                            UserId = new Guid("f5a6a3a0-4227-4973-abb5-a63fbe725923")
-                        },
-                        new
-                        {
-                            Id = new Guid("ba0eb0ef-b69b-46fd-b8e2-41b4178ae7cb"),
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            OrderPaid = true,
-                            OrderPlaced = new DateTime(2021, 8, 5, 10, 10, 51, 370, DateTimeKind.Local).AddTicks(7934),
-                            OrderTotal = 116,
-                            UserId = new Guid("7aeb2c01-fe8e-4b84-a5ba-330bdf950f5c")
-                        });
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("GloboEvent.Domain.Entities.Event", b =>
