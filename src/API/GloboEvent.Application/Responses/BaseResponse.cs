@@ -28,6 +28,6 @@ namespace GloboEvent.Application.Responses
 
         public int StatusCode { get; set; } = (int)HttpStatusCode.OK;
 
-        public List<string> ErrorMessages { get; set; }
+        public List<string> ErrorMessages { get; set; } = new List<string>();
     }
 }
