@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace GloboEvent.Application.Model.Mail
+﻿namespace GloboEvent.Application.Model.Mail
 {
     public class Email
     {

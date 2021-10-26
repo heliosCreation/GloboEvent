@@ -11,17 +11,26 @@ namespace GloboEvent.Application.Responses
         public List<T> DataList { get; set; }
 
 
-        public ApiResponse<T> setNotFoundResponse()
+        public ApiResponse<T> setNotFoundResponse(string message = null)
         {
             Succeeded = false;
             StatusCode = (int)HttpStatusCode.NotFound;
+            ErrorMessages.Add(message);
             return this;
         }
 
-        public ApiResponse<T> SetBadRequestResponse()
+        public ApiResponse<T> SetBadRequestResponse(string message = null, List<string> errors = null)
         {
             Succeeded = false;
             StatusCode = (int)HttpStatusCode.BadRequest;
+            if (message != null)
+            {
+                ErrorMessages.Add(message);
+            }
+            else
+            {
+                ErrorMessages = errors;
+            }
             return this;
         }
 
@@ -29,6 +38,7 @@ namespace GloboEvent.Application.Responses
         {
             Succeeded = false;
             StatusCode = (int)HttpStatusCode.InternalServerError;
+            ErrorMessages.Add("An error occured while processing your request. If the problem persist, try to contact your administrator.");
             return this;
         }
     }

@@ -3,6 +3,7 @@ using GloboEvent.Application.Model.Authentification;
 using GloboEvent.Application.Responses;
 using GloboEvent.Identity.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -12,6 +13,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace GloboEvent.Identity.Services
 {
@@ -30,6 +32,7 @@ namespace GloboEvent.Identity.Services
             _jwtSettings = jwtSettings.Value;
             _signInManager = signInManager;
         }
+
 
         public async Task<ApiResponse<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request)
         {
@@ -68,7 +71,7 @@ namespace GloboEvent.Identity.Services
 
             if (existingUser != null)
             {
-                return response.SetBadRequestResponse();
+                return response.SetBadRequestResponse($"Username {request.UserName} is already taken.");
             }
 
             var user = new ApplicationUser
@@ -77,7 +80,7 @@ namespace GloboEvent.Identity.Services
                 FirstName = request.FirstName,
                 LastName = request.LastName,
                 UserName = request.UserName,
-                EmailConfirmed = true
+                EmailConfirmed = false
             };
 
             var existingEmail = await _userManager.FindByEmailAsync(request.Email);
@@ -93,13 +96,20 @@ namespace GloboEvent.Identity.Services
                 }
                 else
                 {
-                    return response.SetInternalServerErrorResponse();
+                    return response.SetBadRequestResponse(null, result.Errors.Select(e => e.Description).ToList());
                 }
             }
             else
             {
-                return response.SetBadRequestResponse();
+                return response.SetBadRequestResponse($"Email {request.Email} is already taken.");
             }
+        }
+
+        public async Task<string> GenerateRegistrationEncodedToken(string id)
+        {
+            var user =  await _userManager.FindByIdAsync(id);
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            return WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         }
 
         private async Task<JwtSecurityToken> GenerateToken(ApplicationUser user)
@@ -135,5 +145,30 @@ namespace GloboEvent.Identity.Services
                 signingCredentials: signingCredentials);
             return jwtSecurityToken;
         }
+
+        public async Task<bool> UserExist(string email)
+        {
+            return await _userManager.FindByEmailAsync(email) != null;
+        }
+
+
+        public async Task<ApiResponse<object>> ConfirmEmail(string email, string token)
+        {
+            var response = new ApiResponse<object>();
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return response.setNotFoundResponse($"User with email {email} was not found.");
+            }
+            token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
+            var result =  await _userManager.ConfirmEmailAsync(user, token);
+            if (!result.Succeeded)
+            {
+                return response.SetInternalServerErrorResponse();
+            }
+            return response;
+        }
+
+
     }
 }

@@ -35,5 +35,18 @@ namespace GloboEvent.Infrastructure.Mail
 
             return response.StatusCode == System.Net.HttpStatusCode.Accepted || response.StatusCode == System.Net.HttpStatusCode.OK;
         }
+
+        public async Task SendRegistrationMail(string address, string url)
+        {
+            var email = new Email
+            {
+                To = address,
+                Subject = "Email confirmation",
+                Body = $"<p> To finalize your registration click <a href=\"{url}\">here</a>. :) </p>"
+            };
+            await SendMail(email);
+        }
+ 
+           
     }
 }

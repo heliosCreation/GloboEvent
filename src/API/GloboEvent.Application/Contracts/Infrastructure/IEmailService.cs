@@ -9,5 +9,6 @@ namespace GloboEvent.Application.Contrats.Infrastructure
     public interface IEmailService
     {
         Task<bool> SendMail(Email email);
+        Task SendRegistrationMail(string address, string code);
     }
 }
