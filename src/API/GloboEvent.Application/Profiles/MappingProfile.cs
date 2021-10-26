@@ -2,7 +2,7 @@
 using GloboEvent.Application.Features.Categories;
 using GloboEvent.Application.Features.Categories.Commands.Create;
 using GloboEvent.Application.Features.Categories.Commands.Update;
-using GloboEvent.Application.Features.Categories.Queries.GetCategoriesListWithEvent;
+using GloboEvent.Application.Features.Categories.Queries.GetCategoryWithEvent;
 using GloboEvent.Application.Features.Events.Commands.CreateEvent;
 using GloboEvent.Application.Features.Events.Commands.UpdateEvent;
 using GloboEvent.Application.Features.Events.Queries.GetEventDetails;
@@ -24,7 +24,8 @@ namespace GloboEvent.Application.Profiles
             CreateMap<UpdateEventCommand, Event>();
 
             CreateMap<Category, CategoryVm>();
-            CreateMap<Category, CategoryWithEventsVm>();
+            CreateMap<Category, CategoryWithEventsVm>()
+                .ForMember(src => src.Events, opt => opt.MapFrom(src => src.Events));
             CreateMap<Category, CreateCategoryCommand>();
             CreateMap<UpdateCategoryCommand, Category>();
         }

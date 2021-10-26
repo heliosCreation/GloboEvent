@@ -11,5 +11,7 @@ namespace GloboEvent.Application.Features.Events.Queries.GetEventList
         public DateTime Date { get; set; }
 
         public string ImageUrl { get; set; }
+
+        public Guid CategoryId { get; set; }
     }
 }

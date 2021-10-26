@@ -2,9 +2,10 @@
 using GloboEvent.Application.Features.Categories.Commands.Delete;
 using GloboEvent.Application.Features.Categories.Commands.Update;
 using GloboEvent.Application.Features.Categories.Queries.GetCategoriesList;
-using GloboEvent.Application.Features.Categories.Queries.GetCategoriesListWithEvent;
+using GloboEvent.Application.Features.Categories.Queries.GetCategoryWithEvent;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 
@@ -20,12 +21,12 @@ namespace GloboEvent.API.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet("allWithEvent", Name = "Get All Categories with Event")]
+        [HttpGet("{id}/WithEvent", Name = "Category with Events")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetWithEvent(bool includeHistory)
+        public async Task<IActionResult> GetWithEvent(Guid id, bool includeHistory)
         {
-            var dtos = await Mediator.Send(new GetCategoriesListWithEventQuery() { IncludeHistory = includeHistory });
+            var dtos = await Mediator.Send(new GetCategoryWithEventQuery {Id = id, IncludeHistory = includeHistory });
             return Ok(dtos);
         }
 

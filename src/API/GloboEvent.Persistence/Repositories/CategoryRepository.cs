@@ -2,9 +2,7 @@
 using GloboEvent.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GloboEvent.Persistence.Repositories
@@ -16,28 +14,29 @@ namespace GloboEvent.Persistence.Repositories
         {
         }
 
-        public async Task<List<Category>> getAllWithEvents(bool includeHistory)
+        public async Task<Category> getWithEvents(bool includeHistory, Guid id)
         {
-            var categoriesWithEvent = new List<Category>();
             if (includeHistory)
             {
-                categoriesWithEvent = await _dbContext.Categories.Include(c => c.Events).ToListAsync();
+                return await _dbContext
+                    .Categories
+                    .Where(c => c.Id == id)
+                    .Include(c => c.Events)
+                    .FirstOrDefaultAsync();
             }
             else
             {
-                categoriesWithEvent = 
-                    await _dbContext.Categories
-                    .Include(c => c.Events.Where(c => c.Date == DateTime.Today))
-                    .ToListAsync();
+                return await _dbContext.Categories
+                 .Where(c => c.Id == id)
+                .Include(c => c.Events.Where(c => c.Date == DateTime.Today))
+                .FirstOrDefaultAsync();
             }
-
-            return categoriesWithEvent; 
         }
 
         public async Task<bool> IsNameUnique(string categoryName)
         {
-            var isUnique =  await _dbContext.Categories.AnyAsync(c => c.Name == categoryName) == false;
-            return isUnique; 
+            var isUnique = await _dbContext.Categories.AnyAsync(c => c.Name == categoryName) == false;
+            return isUnique;
         }
     }
 }
