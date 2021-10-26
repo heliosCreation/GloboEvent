@@ -1,10 +1,8 @@
 ﻿using GloboEvent.Api.IntegrationTest.Base;
 using GloboEvent.API;
-using GloboEvent.Application.Features.Categories.Queries.GetCategoriesList;
+using GloboEvent.Application.Features.Categories;
+using GloboEvent.Application.Responses;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -28,10 +26,10 @@ namespace GloboEvent.Api.IntegrationTest.Controllers
             response.EnsureSuccessStatusCode();
 
             var responseString = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<List<CategoryListVm>>(responseString);
+            var result = JsonConvert.DeserializeObject<ApiResponse<CategoryVm>>(responseString);
 
             Assert.NotNull(result);
-            Assert.IsType<List<CategoryListVm>>(result);
+            Assert.IsType<ApiResponse<CategoryVm>>(result);
         }
     }
 }

@@ -7,14 +7,14 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GloboEvent.Application.Features.Categories.Queries.GetCategoriesListWithEvent
+namespace GloboEvent.Application.Features.Categories.Queries.GetCategoryWithEvent
 {
-    public class GetCategoriesListWithEventsQueryHandler : IRequestHandler<GetCategoriesListWithEventQuery, ApiResponse<CategoryWithEventsVm>>
+    public class GetCategoryWithEventsQueryHandler : IRequestHandler<GetCategoryWithEventQuery, ApiResponse<CategoryWithEventsVm>>
     {
         private readonly IMapper _mapper;
         private readonly ICategoryRepository _categoryRepository;
 
-        public GetCategoriesListWithEventsQueryHandler
+        public GetCategoryWithEventsQueryHandler
             (IMapper mapper,
             ICategoryRepository categoryRepository)
         {
@@ -22,11 +22,11 @@ namespace GloboEvent.Application.Features.Categories.Queries.GetCategoriesListWi
             _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
-        public async Task<ApiResponse<CategoryWithEventsVm>> Handle(GetCategoriesListWithEventQuery request, CancellationToken cancellationToken)
+        public async Task<ApiResponse<CategoryWithEventsVm>> Handle(GetCategoryWithEventQuery request, CancellationToken cancellationToken)
         {
             var response = new ApiResponse<CategoryWithEventsVm>();
-            var list = await _categoryRepository.getAllWithEvents(request.IncludeHistory);
-            response.DataList = _mapper.Map<List<CategoryWithEventsVm>>(list);
+            var list = await _categoryRepository.getWithEvents(request.IncludeHistory, request.Id);
+            response.Data = _mapper.Map<CategoryWithEventsVm>(list);
             return response;
         }
     }

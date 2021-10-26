@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using GloboEvent.Application.Contrats.Persistence;
-using GloboEvent.Application.Features.Categories.Commands;
+using GloboEvent.Application.Features.Categories.Commands.Create;
 using GloboEvent.Application.Profiles;
 using GloboEvent.Application.UnitTests.Mocks;
 using Moq;
@@ -32,12 +32,12 @@ namespace GloboEvent.Application.UnitTests.Categories.Commands
         public async Task Handle_ValidCategory_CategoryAddedToRepo()
         {
             var handler = new CreateCategoryCommandHandler(_mapper, _mockCategoryRepository.Object);
-            var result = handler.Handle(new CreateCategoryCommand() { Name = "Test" }, CancellationToken.None);
+            var result = await handler.Handle(new CreateCategoryCommand() { Name = "Test" }, CancellationToken.None);
 
             var allCategories = await _mockCategoryRepository.Object.ListAllAsync();
 
             allCategories.Count.ShouldBe(5);
-            result.Result.Category.Name.ShouldBe("Test");
+            result.Data.Name.ShouldBe("Test");
         }
     }
 }

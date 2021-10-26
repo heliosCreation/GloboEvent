@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GloboEvent.Application.Features.Categories.Queries.GetCategoriesListWithEvent
+namespace GloboEvent.Application.Features.Categories.Queries.GetCategoryWithEvent
 {
     public class CategoryWithEventsVm
     {

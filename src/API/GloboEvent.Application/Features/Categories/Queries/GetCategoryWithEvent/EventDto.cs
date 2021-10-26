@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GloboEvent.Application.Features.Categories.Queries.GetCategoriesListWithEvent
+namespace GloboEvent.Application.Features.Categories.Queries.GetCategoryWithEvent
 {
     public class EventDto
     {

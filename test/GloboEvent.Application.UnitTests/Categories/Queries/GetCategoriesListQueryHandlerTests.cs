@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using GloboEvent.Application.Contrats.Persistence;
+using GloboEvent.Application.Features.Categories;
 using GloboEvent.Application.Features.Categories.Queries.GetCategoriesList;
 using GloboEvent.Application.Profiles;
+using GloboEvent.Application.Responses;
 using GloboEvent.Application.UnitTests.Mocks;
-using GloboEvent.Domain.Entities;
 using Moq;
 using Shouldly;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
@@ -36,9 +36,9 @@ namespace GloboEvent.Application.UnitTests.Categories.Queries
 
             var result = await handler.Handle(new GetCategoriesListQuery(), CancellationToken.None);
 
-            result.ShouldBeOfType<List<CategoryListVm>>();
+            result.ShouldBeOfType<ApiResponse<CategoryVm>>();
 
-            result.Count.ShouldBe(4);   
+            result.DataList.Count.ShouldBe(4);
         }
     }
 }
