@@ -2,15 +2,11 @@
 using GloboEvent.Application.Contrats.Infrastructure;
 using GloboEvent.Application.Model.Authentification;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using System;
-using System.Text;
-using Microsoft.AspNetCore.WebUtilities;
+using System.Threading.Tasks;
 
 namespace GloboEvent.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class AccountController : ApiController
     {
         private readonly IAuthenticationService _authenticationService;

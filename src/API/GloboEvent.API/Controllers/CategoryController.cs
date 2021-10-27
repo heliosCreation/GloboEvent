@@ -3,6 +3,7 @@ using GloboEvent.Application.Features.Categories.Commands.Delete;
 using GloboEvent.Application.Features.Categories.Commands.Update;
 using GloboEvent.Application.Features.Categories.Queries.GetCategoriesList;
 using GloboEvent.Application.Features.Categories.Queries.GetCategoryWithEvent;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace GloboEvent.API.Controllers
 {
+    [Authorize]
     public class CategoryController : ApiController
     {
         [HttpGet("all", Name = "Get All Categories")]

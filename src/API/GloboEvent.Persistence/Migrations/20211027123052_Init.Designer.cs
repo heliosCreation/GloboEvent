@@ -10,15 +10,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GloboEvent.Persistence.Migrations
 {
     [DbContext(typeof(GloboEventDbContext))]
-    [Migration("20211026095439_Init")]
+    [Migration("20211027123052_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("GloboEvent.Domain.Entities.Category", b =>
@@ -41,8 +41,8 @@ namespace GloboEvent.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -110,8 +110,8 @@ namespace GloboEvent.Persistence.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
@@ -129,7 +129,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "John Egbert",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2022, 4, 26, 11, 54, 39, 14, DateTimeKind.Local).AddTicks(8753),
+                            Date = new DateTime(2022, 4, 27, 14, 30, 52, 434, DateTimeKind.Local).AddTicks(2029),
                             Description = "Join John for his farwell tour across 15 continents. John really needs no introduction since he has already mesmerized the world with his banjo.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/banjo.jpg",
                             Name = "John Egbert Live",
@@ -141,7 +141,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "Michael Johnson",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2022, 7, 26, 11, 54, 39, 17, DateTimeKind.Local).AddTicks(4340),
+                            Date = new DateTime(2022, 7, 27, 14, 30, 52, 436, DateTimeKind.Local).AddTicks(7484),
                             Description = "Michael Johnson doesn't need an introduction. His 25 concert across the globe last year were seen by thousands. Can we add you to the list?",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/michael.jpg",
                             Name = "The State of Affairs: Michael Live!",
@@ -153,7 +153,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "DJ 'The Mike'",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2022, 2, 26, 11, 54, 39, 17, DateTimeKind.Local).AddTicks(4381),
+                            Date = new DateTime(2022, 2, 27, 14, 30, 52, 436, DateTimeKind.Local).AddTicks(7533),
                             Description = "DJs from all over the world will compete in this epic battle for eternal fame.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/dj.jpg",
                             Name = "Clash of the DJs",
@@ -165,7 +165,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "Manuel Santinonisi",
                             CategoryId = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2022, 2, 26, 11, 54, 39, 17, DateTimeKind.Local).AddTicks(4398),
+                            Date = new DateTime(2022, 2, 27, 14, 30, 52, 436, DateTimeKind.Local).AddTicks(7553),
                             Description = "Get on the hype of Spanish Guitar concerts with Manuel.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/guitar.jpg",
                             Name = "Spanish guitar hits with Manuel",
@@ -177,7 +177,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "Many",
                             CategoryId = new Guid("fe98f549-e790-4e9f-aa16-18c2292a2ee9"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2022, 8, 26, 11, 54, 39, 17, DateTimeKind.Local).AddTicks(4413),
+                            Date = new DateTime(2022, 8, 27, 14, 30, 52, 436, DateTimeKind.Local).AddTicks(7569),
                             Description = "The best tech conference in the world",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/conf.jpg",
                             Name = "Techorama 2021",
@@ -189,7 +189,7 @@ namespace GloboEvent.Persistence.Migrations
                             Artist = "Nick Sailor",
                             CategoryId = new Guid("6313179f-7837-473a-a4d5-a5571b43e6a6"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Date = new DateTime(2022, 6, 26, 11, 54, 39, 17, DateTimeKind.Local).AddTicks(4430),
+                            Date = new DateTime(2022, 6, 27, 14, 30, 52, 436, DateTimeKind.Local).AddTicks(7587),
                             Description = "The critics are over the moon and so will you after you've watched this sing and dance extravaganza written by Nick Sailor, the man from 'My dad and sister'.",
                             ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/musical.jpg",
                             Name = "To the Moon and Back",
@@ -239,6 +239,13 @@ namespace GloboEvent.Persistence.Migrations
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("GloboEvent.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("Events");
                 });
 #pragma warning restore 612, 618
         }
