@@ -41,22 +41,26 @@ namespace GloboEvent.API.Controllers
             return Ok(response);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Put([FromBody] UpdateCategoryCommand command)
+        public async Task<IActionResult> Put([FromRoute] Guid id,[FromBody] UpdateCategoryCommand command)
         {
+            if (id != command.Id)
+            {
+                return BadRequest();
+            }
             return Ok(await Mediator.Send(command));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Delete([FromBody] DeleteCategoryCommand command)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(new DeleteCategoryCommand(id)));
         }
     }
 }

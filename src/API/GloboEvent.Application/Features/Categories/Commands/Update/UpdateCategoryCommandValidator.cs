@@ -1,10 +1,33 @@
-﻿using System;
+﻿using FluentValidation;
+using GloboEvent.Application.Contrats.Persistence;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GloboEvent.Application.Features.Categories.Commands.Update
 {
-    class UpdateCategoryCommandValidator
+    public class UpdateCategoryCommandValidator : AbstractValidator<UpdateCategoryCommand>
     {
+        private readonly ICategoryRepository _categoryRepository;
+
+        public UpdateCategoryCommandValidator(ICategoryRepository categoryRepository)
+        {
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
+
+            RuleFor(p => p.Name)
+                .NotNull()
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .MaximumLength(100).WithMessage("{PropertyName} can't exceed 100 characters.");
+
+            RuleFor(e => e)
+                .MustAsync(IsNameUniqueForUpdate).WithMessage("A category with the same given name already exists.");
+        }
+
+        private async Task<bool> IsNameUniqueForUpdate(UpdateCategoryCommand e, CancellationToken c)
+        {
+            return await _categoryRepository.IsNameUniqueForUpdate(e.Id,e.Name);
+        }
     }
 }

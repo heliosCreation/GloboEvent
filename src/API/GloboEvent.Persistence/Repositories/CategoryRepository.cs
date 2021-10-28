@@ -38,5 +38,9 @@ namespace GloboEvent.Persistence.Repositories
             var isUnique = await _dbContext.Categories.AnyAsync(c => c.Name == categoryName) == false;
             return isUnique;
         }
+        public async Task<bool> IsNameUniqueForUpdate(Guid id, string categoryName)
+        {
+            return !await _dbContext.Categories.AnyAsync(c => c.Name == categoryName && c.Id != id );
+        }
     }
 }

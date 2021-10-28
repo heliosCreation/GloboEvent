@@ -43,8 +43,4 @@
     <ProjectReference Include="..\..\src\API\GloboEvent.Persistence\GloboEvent.Persistence.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\Category\Command\" />
-  </ItemGroup>
-
 </Project>
