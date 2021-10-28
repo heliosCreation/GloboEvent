@@ -12,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -24,17 +23,17 @@ namespace GloboEvent.Api.IntegrationTest.Base
     public class IntegrationTestBase : IDisposable
     {
         protected readonly HttpClient TestClient;
-        private  IConfiguration _configuration;
+        private IConfiguration _configuration;
         private readonly IServiceProvider _serviceProvider;
 
         protected IntegrationTestBase()
         {
             var appFactory = new WebApplicationFactory<Startup>()
-                
+
                 .WithWebHostBuilder(builder =>
                 {
                     //Change the json file used by the integration tests
-                    builder.ConfigureAppConfiguration((context,config) =>
+                    builder.ConfigureAppConfiguration((context, config) =>
                     {
                         _configuration = new ConfigurationBuilder()
                          .AddJsonFile("integrationsettings.json")

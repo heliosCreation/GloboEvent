@@ -23,7 +23,7 @@ namespace GloboEvent.API.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet("{id}/WithEvent", Name = "Category with Events")]
+        [HttpGet("{id}/Event/{includeHistory}", Name = "Category with Events")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetWithEvent(Guid id, bool includeHistory)

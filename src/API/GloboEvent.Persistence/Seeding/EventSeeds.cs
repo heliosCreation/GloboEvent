@@ -15,7 +15,7 @@ namespace GloboEvent.Persistence.Seeding
                 Name = "John Egbert Live",
                 Price = 65,
                 Artist = "John Egbert",
-                Date = DateTime.Now.AddMonths(6),
+                Date = DateTime.Now.Date,
                 Description = "Join John for his farwell tour across 15 continents. John really needs no introduction since he has already mesmerized the world with his banjo.",
                 ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/banjo.jpg",
                 CategoryId = concertGuid
