@@ -21,9 +21,10 @@ namespace GloboEvent.API.Controllers
         }
 
         [HttpPost(Authenticate)]
-        public async Task<ActionResult<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request)
+        public async Task<IActionResult> AuthenticateAsync(AuthenticationRequest request)
         {
-            return Ok(await _authenticationService.AuthenticateAsync(request));
+            var x = await _authenticationService.AuthenticateAsync(request);
+            return Ok();
         }
 
         [HttpPost(Register)]

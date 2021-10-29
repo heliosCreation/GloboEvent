@@ -55,12 +55,14 @@ namespace GloboEvent.API.Controllers
 
         [HttpPut(Update, Name = "Update Event")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> EditEvent([FromBody] UpdateEventCommand command)
         {
-            await Mediator.Send(command);
-            return NoContent();
+            var x = await Mediator.Send(command);
+            return Ok(x);
+            //return Ok(await Mediator.Send(command));
         }
 
         [HttpDelete(Delete, Name = "Delete Event")]
@@ -69,8 +71,7 @@ namespace GloboEvent.API.Controllers
         [ProducesDefaultResponseType]
         public async Task<IActionResult> DeleteEvent(Guid id)
         {
-            await Mediator.Send(new DeleteEventCommand(id));
-            return NoContent();
+            return Ok(await Mediator.Send(new DeleteEventCommand(id)));
         }
     }
 }
