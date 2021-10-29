@@ -14,7 +14,7 @@
 
   "ConnectionStrings": {
     "IntegrationData": "Server=.;Database={name};Trusted_Connection=true;",
-    "GloboTicketIdentityConnectionString": "Server=.;Database=GloboEventIdentityIntegration;Trusted_Connection=true;"
+    "IntegrationIdentity": "Server=.;Database={name};Trusted_Connection=true;"
   },
 
   "Logging": {

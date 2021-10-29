@@ -52,11 +52,11 @@ namespace GloboEvent.API.Contract
             public const string Controller = nameof(Account);
             public const string EndpointBase = Base + Controller + "/";
 
-            public const string Authenticate = EndpointBase + "all";
+            public const string Authenticate = EndpointBase + "authenticate";
 
-            public const string Register = EndpointBase + "{id}";
+            public const string Register = EndpointBase + "register";
 
-            public const string ConfirmEmail = EndpointBase + "CsvExport";
+            public const string ConfirmEmail = EndpointBase + "confirmEmail";
         }
     }
 }

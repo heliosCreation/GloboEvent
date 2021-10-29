@@ -13,7 +13,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace GloboEvent.Identity.Services
 {
@@ -107,7 +106,7 @@ namespace GloboEvent.Identity.Services
 
         public async Task<string> GenerateRegistrationEncodedToken(string id)
         {
-            var user =  await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             return WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         }
@@ -161,7 +160,7 @@ namespace GloboEvent.Identity.Services
                 return response.setNotFoundResponse($"User with email {email} was not found.");
             }
             token = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(token));
-            var result =  await _userManager.ConfirmEmailAsync(user, token);
+            var result = await _userManager.ConfirmEmailAsync(user, token);
             if (!result.Succeeded)
             {
                 return response.SetInternalServerErrorResponse();

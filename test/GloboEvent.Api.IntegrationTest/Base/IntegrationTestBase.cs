@@ -47,21 +47,19 @@ namespace GloboEvent.Api.IntegrationTest.Base
 
                     builder.ConfigureServices(services =>
                     {
-                        //Remove the DbContext service from the original startup
+                        //Remove the Data DbContext service from the original startup
                         services.RemoveAll(typeof(DbContextOptions<GloboEventDbContext>));
-                        //Add our test db
-                        var connectionString = _configuration.GetConnectionString("IntegrationData").Replace("{name}",Guid.NewGuid().ToString());
+                        //Add our test data db
+                        var dataConnectionString = _configuration.GetConnectionString("IntegrationData").Replace("{name}",Guid.NewGuid().ToString());
                         services.AddDbContext<GloboEventDbContext>(
-                           opt => opt.UseSqlServer(connectionString,
-                           b => b.MigrationsAssembly(typeof(GloboEventDbContext).Assembly.FullName))
-   );
+                           opt => opt.UseSqlServer(dataConnectionString,
+                           b => b.MigrationsAssembly(typeof(GloboEventDbContext).Assembly.FullName)));
 
-                        services.RemoveAll(typeof(GloboEventIdentityDbContext));
-                        services.AddDbContext<GloboEventIdentityDbContext>(options =>
-                        {
-                            options.UseInMemoryDatabase(Guid.NewGuid().ToString(), new InMemoryDatabaseRoot());
-                        });
-
+                        services.RemoveAll(typeof(DbContextOptions<GloboEventIdentityDbContext>));
+                        var identityConnectionString = _configuration.GetConnectionString("IntegrationIdentity").Replace("{name}", Guid.NewGuid().ToString());
+                        services.AddDbContext<GloboEventDbContext>(
+                           opt => opt.UseSqlServer(identityConnectionString,
+                           b => b.MigrationsAssembly(typeof(GloboEventIdentityDbContext).Assembly.FullName)));
                     });
                 });
 
@@ -105,9 +103,12 @@ namespace GloboEvent.Api.IntegrationTest.Base
         public void Dispose()
         {
             using var serviceScope = _serviceProvider.CreateScope();
+
             var dataContext = serviceScope.ServiceProvider.GetRequiredService<GloboEventDbContext>();
+            var identityContext = serviceScope.ServiceProvider.GetRequiredService<GloboEventIdentityDbContext>();
 
             dataContext.Database.EnsureDeleted();
+            identityContext.Database.EnsureDeleted();
         }
     }
 }
