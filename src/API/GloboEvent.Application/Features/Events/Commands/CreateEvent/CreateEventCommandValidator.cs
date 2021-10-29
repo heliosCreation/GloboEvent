@@ -34,6 +34,9 @@ namespace GloboEvent.Application.Features.Events.Commands.CreateEvent
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .GreaterThan(0);
 
+            RuleFor(p => p.CategoryId)
+                .NotNull().WithMessage("{PropertyName} is required");
+
             RuleFor(e => e)
                 .MustAsync(AreNameAndDateunique).WithMessage("An event with the same name and date already exist.");
         }

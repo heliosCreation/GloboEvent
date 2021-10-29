@@ -12,6 +12,15 @@ namespace GloboEvent.Persistence.Repositories
         {
 
         }
+        public override async Task<Event> GetByIdAsync(Guid id)
+        {
+            var x =  await _dbContext.Events
+                .Include(e => e.Category)
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+            return x; 
+        }
+
         public async Task<bool> IsUniqueNameAndDate(string name, DateTime date)
         {
             var matches = await _dbContext.Events.AnyAsync(e => e.Name.Equals(name) && e.Date.Equals(date));
