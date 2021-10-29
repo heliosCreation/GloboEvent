@@ -45,17 +45,9 @@ namespace GloboEvent.Api.IntegrationTest.Base
                         config.AddConfiguration(_configuration);
                     });
 
-                    //Remove the DbContext service from the original startup
                     builder.ConfigureServices(services =>
                     {
-                        //var descriptor = services.SingleOrDefault(
-                        //       d => d.ServiceType ==
-                        //           typeof(DbContextOptions<GloboEventDbContext>));
-
-                        //if (descriptor != null)
-                        //{
-                        //    services.Remove(descriptor);
-                        //}
+                        //Remove the DbContext service from the original startup
                         services.RemoveAll(typeof(DbContextOptions<GloboEventDbContext>));
                         //Add our test db
                         var connectionString = _configuration.GetConnectionString("IntegrationData").Replace("{name}",Guid.NewGuid().ToString());
