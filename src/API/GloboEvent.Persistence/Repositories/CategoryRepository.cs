@@ -28,7 +28,7 @@ namespace GloboEvent.Persistence.Repositories
             {
                 return await _dbContext.Categories
                  .Where(c => c.Id == id)
-                .Include(c => c.Events.Where(c => c.Date == DateTime.Today))
+                .Include(c => c.Events.Where(c => c.Date.Date == DateTime.Today.Date))
                 .FirstOrDefaultAsync();
             }
         }

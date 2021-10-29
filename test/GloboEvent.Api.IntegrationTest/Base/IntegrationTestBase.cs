@@ -1,6 +1,8 @@
 ﻿using GloboEvent.API;
+using GloboEvent.API.Contract;
 using GloboEvent.Application.Features.Categories;
 using GloboEvent.Application.Features.Categories.Commands.Create;
+using GloboEvent.Application.Features.Events.Commands.CreateEvent;
 using GloboEvent.Application.Model.Authentification;
 using GloboEvent.Application.Responses;
 using GloboEvent.Identity;
@@ -20,6 +22,7 @@ using System.Threading.Tasks;
 
 namespace GloboEvent.Api.IntegrationTest.Base
 {
+    using static ApiRoutes;
     public class IntegrationTestBase : IDisposable
     {
         protected readonly HttpClient TestClient;
@@ -55,8 +58,9 @@ namespace GloboEvent.Api.IntegrationTest.Base
                         }
 
                         //Add our test db
+                        var connectionString = _configuration.GetConnectionString("IntegrationData");
                         services.AddDbContext<GloboEventDbContext>(
-                           opt => opt.UseSqlServer(_configuration.GetConnectionString("IntegrationData"),
+                           opt => opt.UseSqlServer(connectionString,
                            b => b.MigrationsAssembly(typeof(GloboEventDbContext).Assembly.FullName))
    );
 
@@ -90,13 +94,13 @@ namespace GloboEvent.Api.IntegrationTest.Base
 
         protected async Task<ApiResponse<CategoryVm>> CreateCategoryAsync(CreateCategoryCommand command)
         {
-            var response = await TestClient.PostAsJsonAsync("/api/Category/addCategory", command);
+            var response = await TestClient.PostAsJsonAsync(Category.Create, command);
             return await response.Content.ReadAsAsync<ApiResponse<CategoryVm>>();
         }
 
         private async Task<string> GetJwtAsync()
         {
-            var response = await TestClient.PostAsJsonAsync("api/Account/authenticate", new AuthenticationRequest
+            var response = await TestClient.PostAsJsonAsync(Account.Authenticate, new AuthenticationRequest
             {
                 Email = "john@gmail.com",
                 Password = "123Pa$$word!"

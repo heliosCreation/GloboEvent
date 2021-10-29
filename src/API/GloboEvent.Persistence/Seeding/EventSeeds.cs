@@ -15,8 +15,8 @@ namespace GloboEvent.Persistence.Seeding
                 Name = "John Egbert Live",
                 Price = 65,
                 Artist = "John Egbert",
-                Date = DateTime.Now.Date,
-                Description = "Join John for his farwell tour across 15 continents. John really needs no introduction since he has already mesmerized the world with his banjo.",
+                Date = DateTime.UtcNow.Date.AddDays(1),
+                Description = "Join John for his farwell tour across 20 continents. John really needs no introduction since he has already mesmerized the world with his banjo.",
                 ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/banjo.jpg",
                 CategoryId = concertGuid
             });
@@ -27,7 +27,7 @@ namespace GloboEvent.Persistence.Seeding
                 Name = "The State of Affairs: Michael Live!",
                 Price = 85,
                 Artist = "Michael Johnson",
-                Date = DateTime.Now.AddMonths(9),
+                Date = DateTime.UtcNow.AddMonths(9),
                 Description = "Michael Johnson doesn't need an introduction. His 25 concert across the globe last year were seen by thousands. Can we add you to the list?",
                 ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/michael.jpg",
                 CategoryId = concertGuid
@@ -39,7 +39,7 @@ namespace GloboEvent.Persistence.Seeding
                 Name = "Clash of the DJs",
                 Price = 85,
                 Artist = "DJ 'The Mike'",
-                Date = DateTime.Now.AddMonths(4),
+                Date = DateTime.UtcNow.AddMonths(4),
                 Description = "DJs from all over the world will compete in this epic battle for eternal fame.",
                 ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/dj.jpg",
                 CategoryId = concertGuid
@@ -51,7 +51,7 @@ namespace GloboEvent.Persistence.Seeding
                 Name = "Spanish guitar hits with Manuel",
                 Price = 25,
                 Artist = "Manuel Santinonisi",
-                Date = DateTime.Now.AddMonths(4),
+                Date = DateTime.UtcNow.AddMonths(4),
                 Description = "Get on the hype of Spanish Guitar concerts with Manuel.",
                 ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/guitar.jpg",
                 CategoryId = concertGuid
@@ -63,7 +63,7 @@ namespace GloboEvent.Persistence.Seeding
                 Name = "Techorama 2021",
                 Price = 400,
                 Artist = "Many",
-                Date = DateTime.Now.AddMonths(10),
+                Date = DateTime.UtcNow.AddMonths(10),
                 Description = "The best tech conference in the world",
                 ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/conf.jpg",
                 CategoryId = conferenceGuid
@@ -75,7 +75,7 @@ namespace GloboEvent.Persistence.Seeding
                 Name = "To the Moon and Back",
                 Price = 135,
                 Artist = "Nick Sailor",
-                Date = DateTime.Now.AddMonths(8),
+                Date = DateTime.UtcNow.AddMonths(8),
                 Description = "The critics are over the moon and so will you after you've watched this sing and dance extravaganza written by Nick Sailor, the man from 'My dad and sister'.",
                 ImageUrl = "https://gillcleerenpluralsight.blob.core.windows.net/files/GloboTicket/musical.jpg",
                 CategoryId = musicalGuid

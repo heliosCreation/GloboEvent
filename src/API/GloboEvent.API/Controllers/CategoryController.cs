@@ -1,4 +1,5 @@
-﻿using GloboEvent.Application.Features.Categories.Commands.Create;
+﻿using GloboEvent.API.Contract;
+using GloboEvent.Application.Features.Categories.Commands.Create;
 using GloboEvent.Application.Features.Categories.Commands.Delete;
 using GloboEvent.Application.Features.Categories.Commands.Update;
 using GloboEvent.Application.Features.Categories.Queries.GetCategoriesList;
@@ -12,10 +13,11 @@ using System.Threading.Tasks;
 
 namespace GloboEvent.API.Controllers
 {
+    using static ApiRoutes.Category;
     [Authorize]
     public class CategoryController : ApiController
     {
-        [HttpGet("all", Name = "Get All Categories")]
+        [HttpGet(GetAll, Name = "Get All Categories")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
@@ -23,7 +25,7 @@ namespace GloboEvent.API.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet("{id}/Event/{includeHistory}", Name = "Category with Events")]
+        [HttpGet(GetById, Name = "Category with Events")]
         [ProducesDefaultResponseType]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetWithEvent(Guid id, bool includeHistory)
@@ -32,7 +34,7 @@ namespace GloboEvent.API.Controllers
             return Ok(dtos);
         }
 
-        [HttpPost("addCategory")]
+        [HttpPost(Create)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddCategory([FromBody] CreateCategoryCommand command)
@@ -41,7 +43,7 @@ namespace GloboEvent.API.Controllers
             return Ok(response);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut(Update)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -54,11 +56,11 @@ namespace GloboEvent.API.Controllers
             return Ok(await Mediator.Send(command));
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete(Delete)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        public async Task<IActionResult> DeleteCategory([FromRoute] Guid id)
         {
             return Ok(await Mediator.Send(new DeleteCategoryCommand(id)));
         }
