@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GloboEvent.Application.Features.Categories;
+using System;
 
 namespace GloboEvent.Application.Features.Events.Queries.GetEventDetails
 {
@@ -18,8 +19,6 @@ namespace GloboEvent.Application.Features.Events.Queries.GetEventDetails
 
         public string ImageUrl { get; set; }
 
-        public Guid CategoryId { get; set; }
-
-        public CategoryDto Category { get; set; }
+        public CategoryVm Category { get; set; }
     }
 }

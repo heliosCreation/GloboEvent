@@ -25,7 +25,7 @@ namespace GloboEvent.Application.Features.Events.Commands.CreateEvent
                 .MaximumLength(500).WithMessage("{PropertyName} can't exceed 500 characters.");
 
             RuleFor(p => p.Date)
-                .Must(p => p > DateTime.UtcNow).WithMessage("{PropertyName} must be set in the future.")
+                .Must(p => p >= DateTime.UtcNow).WithMessage("{PropertyName} must not be set in the past.")
                 .NotNull()
                 .NotEmpty().WithMessage("{PropertyName} is required");
 
@@ -33,6 +33,9 @@ namespace GloboEvent.Application.Features.Events.Commands.CreateEvent
                 .NotNull()
                 .NotEmpty().WithMessage("{PropertyName} is required")
                 .GreaterThan(0);
+
+            RuleFor(p => p.CategoryId)
+                .NotNull().WithMessage("{PropertyName} is required");
 
             RuleFor(e => e)
                 .MustAsync(AreNameAndDateunique).WithMessage("An event with the same name and date already exist.");

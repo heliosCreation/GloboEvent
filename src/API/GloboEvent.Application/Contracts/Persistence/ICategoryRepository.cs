@@ -9,5 +9,6 @@ namespace GloboEvent.Application.Contrats.Persistence
     {
         Task<Category> getWithEvents(bool includeHistory, Guid id);
         Task<bool> IsNameUnique(string categoryName);
+        Task<bool> IsNameUniqueForUpdate(Guid id, string categoryName);
     }
 }

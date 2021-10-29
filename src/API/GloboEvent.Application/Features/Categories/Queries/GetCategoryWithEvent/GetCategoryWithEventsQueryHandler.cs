@@ -25,8 +25,12 @@ namespace GloboEvent.Application.Features.Categories.Queries.GetCategoryWithEven
         public async Task<ApiResponse<CategoryWithEventsVm>> Handle(GetCategoryWithEventQuery request, CancellationToken cancellationToken)
         {
             var response = new ApiResponse<CategoryWithEventsVm>();
-            var list = await _categoryRepository.getWithEvents(request.IncludeHistory, request.Id);
-            response.Data = _mapper.Map<CategoryWithEventsVm>(list);
+            var categoy = await _categoryRepository.getWithEvents(request.IncludeHistory, request.Id);
+            if (categoy == null)
+            {
+                return response.setNotFoundResponse($"Category with id {request.Id} was not found");
+            }
+            response.Data = _mapper.Map<CategoryWithEventsVm>(categoy);
             return response;
         }
     }

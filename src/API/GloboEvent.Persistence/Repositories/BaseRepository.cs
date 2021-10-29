@@ -28,7 +28,7 @@ namespace GloboEvent.Persistence.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<T> GetByIdAsync(Guid id)
+        public virtual async Task<T> GetByIdAsync(Guid id)
         {
             return await _dbContext.Set<T>().FindAsync(id);
         }

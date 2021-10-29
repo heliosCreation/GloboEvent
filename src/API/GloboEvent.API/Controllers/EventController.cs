@@ -1,23 +1,25 @@
 ﻿using GloboEvent.API.Attributes;
+using GloboEvent.API.Contract;
 using GloboEvent.Application.Features.Events.Commands.CreateEvent;
 using GloboEvent.Application.Features.Events.Commands.DeleteEvent;
 using GloboEvent.Application.Features.Events.Commands.UpdateEvent;
 using GloboEvent.Application.Features.Events.Queries.GetEventDetails;
 using GloboEvent.Application.Features.Events.Queries.GetEventExport;
 using GloboEvent.Application.Features.Events.Queries.GetEventList;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace GloboEvent.API.Controllers
 {
+    using static ApiRoutes.Event;
+
+    [Authorize]
     public class EventController : ApiController
     {
-        [HttpGet("all", Name = "Get all Event")]
+        [HttpGet(GetAll, Name = "Get all Event")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         public async Task<IActionResult> Get()
@@ -26,46 +28,50 @@ namespace GloboEvent.API.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet("{id}", Name = "GetEventById")]
+        [HttpGet(GetById, Name = "GetEventById")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Get(Guid id)
         {
             var @event = await Mediator.Send(new GetEventDetailsQuery(id));
             return Ok(@event);
         }
 
-        [HttpGet("export",Name = "ExportEvents")]
+        [HttpGet(ExportToCsv, Name = "ExportEvents")]
         [FileResultContentType("text/csv")]
-        public async Task<FileResult>ExportEventsToCsv()
+        public async Task<FileResult> ExportEventsToCsv()
         {
             var response = await Mediator.Send(new GetEventExportQuery());
-            return File(response.Data.Data, response.Data.ContentType, response.Data.EventExportFileName +".csv");
+            return File(response.Data.Data, response.Data.ContentType, response.Data.EventExportFileName + ".csv");
         }
 
-        [HttpPost(Name = "AddEvent")]
-        public async Task<IActionResult> Create([FromBody] CreateEventCommand command)
+        [HttpPost(Create ,Name = "AddEvent")]
+        public async Task<IActionResult> Add([FromBody] CreateEventCommand command)
         {
             var id = await Mediator.Send(command);
             return Ok(id);
         }
 
-        [HttpPut(Name ="Update Event")]
+        [HttpPut(Update, Name = "Update Event")]
         [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Update([FromBody] UpdateEventCommand command)
+        public async Task<IActionResult> EditEvent([FromBody] UpdateEventCommand command)
         {
-            await Mediator.Send(command);
-            return NoContent();
+            var x = await Mediator.Send(command);
+            return Ok(x);
+            //return Ok(await Mediator.Send(command));
         }
 
-        [HttpDelete("{id}", Name = "Delete Event")]
+        [HttpDelete(Delete, Name = "Delete Event")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> DeleteEvent(Guid id)
         {
-            await Mediator.Send(new DeleteEventCommand(id));
-            return NoContent();
+            return Ok(await Mediator.Send(new DeleteEventCommand(id)));
         }
     }
 }

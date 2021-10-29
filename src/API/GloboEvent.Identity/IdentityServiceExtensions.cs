@@ -22,6 +22,7 @@ namespace GloboEvent.Identity
         {
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 
+
             services.AddDbContext<GloboEventIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("GloboTicketIdentityConnectionString"),
                 b => b.MigrationsAssembly(typeof(GloboEventIdentityDbContext).Assembly.FullName)));
 

@@ -42,8 +42,6 @@ namespace GloboEvent.API
                     var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
 
                     logger.LogError(ex, "An error occurred while migrating or seeding the database.");
-
-                    throw;
                 }
             }
 

@@ -16,7 +16,8 @@ namespace GloboEvent.Application.Features.Categories.Commands.Create
 
             RuleFor(p => p.Name)
                 .NotNull()
-                .NotEmpty().WithMessage("{PropertyName} is required");
+                .NotEmpty().WithMessage("{PropertyName} is required")
+                .MaximumLength(100).WithMessage("{PropertyName} can't exceed 100 characters.");
 
             RuleFor(e => e)
                 .MustAsync(IsNameUnique).WithMessage("A category with the same given name already exists.");

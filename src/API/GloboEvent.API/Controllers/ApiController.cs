@@ -6,7 +6,6 @@ namespace GloboEvent.API.Controllers
 {
     [Produces("application/json")]
     [ApiController]
-    [Route("api/[controller]")]
     public class ApiController : ControllerBase
     {
         private readonly IMediator _mediator;

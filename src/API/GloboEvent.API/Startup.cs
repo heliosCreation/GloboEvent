@@ -67,7 +67,9 @@ namespace GloboEvent.API
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseSwagger();
             app.UseSwaggerUI(opt =>
@@ -77,8 +79,6 @@ namespace GloboEvent.API
             });
 
             app.UseCors("Open");
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

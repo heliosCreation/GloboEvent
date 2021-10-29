@@ -17,7 +17,9 @@ namespace GloboEvent.Application.Profiles
         public MappingProfile()
         {
             CreateMap<Event, EventListVm>().ReverseMap();
-            CreateMap<Event, EventDetailVm>().ReverseMap();
+            CreateMap<Event, EventDetailVm>()
+                .ForMember(src => src.Category, opt => opt.MapFrom(src => src.Category))
+                .ReverseMap();
             CreateMap<Event, EventExportDto>().ReverseMap();
             CreateMap<Event, EventDto>().ReverseMap();
             CreateMap<CreateEventCommand, Event>().ReverseMap();

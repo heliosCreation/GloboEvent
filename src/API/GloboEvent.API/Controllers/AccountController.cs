@@ -1,16 +1,14 @@
-﻿using GloboEvent.Application.Contracts.Identity;
+﻿using GloboEvent.API.Contract;
+using GloboEvent.Application.Contracts.Identity;
 using GloboEvent.Application.Contrats.Infrastructure;
 using GloboEvent.Application.Model.Authentification;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using System;
-using System.Text;
-using Microsoft.AspNetCore.WebUtilities;
+using System.Threading.Tasks;
 
 namespace GloboEvent.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
+    using static ApiRoutes.Account;
     public class AccountController : ApiController
     {
         private readonly IAuthenticationService _authenticationService;
@@ -22,13 +20,14 @@ namespace GloboEvent.API.Controllers
             _emailService = emailService ?? throw new ArgumentNullException(nameof(emailService));
         }
 
-        [HttpPost("authenticate")]
-        public async Task<ActionResult<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request)
+        [HttpPost(Authenticate)]
+        public async Task<IActionResult> AuthenticateAsync(AuthenticationRequest request)
         {
-            return Ok(await _authenticationService.AuthenticateAsync(request));
+            var x = await _authenticationService.AuthenticateAsync(request);
+            return Ok();
         }
 
-        [HttpPost("register")]
+        [HttpPost(Register)]
         public async Task<IActionResult> RegisterAsync(RegistrationRequest request)
         {
             var response = await _authenticationService.RegisterAsync(request);
@@ -42,9 +41,9 @@ namespace GloboEvent.API.Controllers
             return Ok(response);
         }
 
-        [Route("ConfirmEmail")]
+        [Route(ConfirmEmail)]
         [HttpGet]
-        public async Task<IActionResult> ConfirmEmail(string email, string code)
+        public async Task<IActionResult> ConfirmEmailAsync(string email, string code)
         {
             var response = await _authenticationService.ConfirmEmail(email, code);
             return Ok(response);
