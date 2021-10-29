@@ -13,7 +13,7 @@
   },
 
   "ConnectionStrings": {
-    "IntegrationData": "Server=.;Database=Integration_GloboEventData;Trusted_Connection=true;",
+    "IntegrationData": "Server=.;Database={name};Trusted_Connection=true;",
     "GloboTicketIdentityConnectionString": "Server=.;Database=GloboEventIdentityIntegration;Trusted_Connection=true;"
   },
 

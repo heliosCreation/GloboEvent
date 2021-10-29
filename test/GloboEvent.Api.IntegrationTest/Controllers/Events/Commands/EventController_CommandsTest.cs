@@ -57,9 +57,9 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Events.Commands
 
             var response = await TestClient.PutAsJsonAsync(
                 Update.Replace("{id}", DefaultEventId),
-                new UpdateEventCommand { Name = "Updated", Price = 1, Date = DateTime.UtcNow.Date.AddDays(1), CategoryId = Guid.Parse(CategoryForUpdateId) });
+                new UpdateEventCommand { EventId = Guid.Parse(DefaultEventId), Name = "Updated", Price = 1, Date = DateTime.UtcNow.Date.AddDays(1), CategoryId = Guid.Parse(CategoryForUpdateId) });
 
-            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+            response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
 
         [Fact]

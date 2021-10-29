@@ -21,10 +21,10 @@ namespace GloboEvent.API.Controllers
         }
 
         [HttpPost(Authenticate)]
-        public async Task<IActionResult> AuthenticateAsync(AuthenticationRequest request)
+        public async Task<ActionResult<AuthenticationResponse>> AuthenticateAsync(AuthenticationRequest request)
         {
             var x = await _authenticationService.AuthenticateAsync(request);
-            return Ok();
+            return Ok(x);
         }
 
         [HttpPost(Register)]
@@ -41,8 +41,7 @@ namespace GloboEvent.API.Controllers
             return Ok(response);
         }
 
-        [Route(ConfirmEmail)]
-        [HttpGet]
+        [HttpGet(ConfirmEmail)]
         public async Task<IActionResult> ConfirmEmailAsync(string email, string code)
         {
             var response = await _authenticationService.ConfirmEmail(email, code);

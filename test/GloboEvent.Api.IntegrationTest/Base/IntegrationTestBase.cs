@@ -48,17 +48,17 @@ namespace GloboEvent.Api.IntegrationTest.Base
                     //Remove the DbContext service from the original startup
                     builder.ConfigureServices(services =>
                     {
-                        var descriptor = services.SingleOrDefault(
-                               d => d.ServiceType ==
-                                   typeof(DbContextOptions<GloboEventDbContext>));
+                        //var descriptor = services.SingleOrDefault(
+                        //       d => d.ServiceType ==
+                        //           typeof(DbContextOptions<GloboEventDbContext>));
 
-                        if (descriptor != null)
-                        {
-                            services.Remove(descriptor);
-                        }
-
+                        //if (descriptor != null)
+                        //{
+                        //    services.Remove(descriptor);
+                        //}
+                        services.RemoveAll(typeof(DbContextOptions<GloboEventDbContext>));
                         //Add our test db
-                        var connectionString = _configuration.GetConnectionString("IntegrationData");
+                        var connectionString = _configuration.GetConnectionString("IntegrationData").Replace("{name}",Guid.NewGuid().ToString());
                         services.AddDbContext<GloboEventDbContext>(
                            opt => opt.UseSqlServer(connectionString,
                            b => b.MigrationsAssembly(typeof(GloboEventDbContext).Assembly.FullName))
