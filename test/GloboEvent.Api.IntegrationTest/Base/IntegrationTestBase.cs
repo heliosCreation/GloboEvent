@@ -57,7 +57,7 @@ namespace GloboEvent.Api.IntegrationTest.Base
 
                         services.RemoveAll(typeof(DbContextOptions<GloboEventIdentityDbContext>));
                         var identityConnectionString = _configuration.GetConnectionString("IntegrationIdentity").Replace("{name}", Guid.NewGuid().ToString());
-                        services.AddDbContext<GloboEventDbContext>(
+                        services.AddDbContext<GloboEventIdentityDbContext>(
                            opt => opt.UseSqlServer(identityConnectionString,
                            b => b.MigrationsAssembly(typeof(GloboEventIdentityDbContext).Assembly.FullName)));
                     });
@@ -72,8 +72,13 @@ namespace GloboEvent.Api.IntegrationTest.Base
             using var serviceScope = _serviceProvider.CreateScope();
 
             var dataContext = serviceScope.ServiceProvider.GetRequiredService<GloboEventDbContext>();
+            var identityContext = serviceScope.ServiceProvider.GetRequiredService<GloboEventIdentityDbContext>();
+
             dataContext.Database.Migrate();
-            var res = dataContext.Database.EnsureCreated();
+            identityContext.Database.Migrate();
+
+            dataContext.Database.EnsureCreated();
+            identityContext.Database.EnsureCreated();
         }
 
 
@@ -93,7 +98,7 @@ namespace GloboEvent.Api.IntegrationTest.Base
             var response = await TestClient.PostAsJsonAsync(Account.Authenticate, new AuthenticationRequest
             {
                 Email = "john@gmail.com",
-                Password = "123Pa$$word!"
+                Password = "Pwd12345!"
             });
 
             var content = await response.Content.ReadAsAsync<ApiResponse<AuthenticationResponse>>();
