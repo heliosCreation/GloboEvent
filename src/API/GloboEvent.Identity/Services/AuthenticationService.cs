@@ -1,4 +1,6 @@
 ﻿using GloboEvent.Application.Contracts.Identity;
+using GloboEvent.Application.Model.Account.Authentification;
+using GloboEvent.Application.Model.Account.Registration;
 using GloboEvent.Application.Model.Authentification;
 using GloboEvent.Application.Responses;
 using GloboEvent.Identity.Models;
@@ -40,14 +42,14 @@ namespace GloboEvent.Identity.Services
 
             if (user == null)
             {
-                return response.setNotFoundResponse();
+                return response.SetUnhautorizedResponse();
             }
 
             var result = await _signInManager.PasswordSignInAsync(user.UserName, request.Password, false, lockoutOnFailure: false);
 
             if (!result.Succeeded)
             {
-                return response.SetBadRequestResponse();
+                return response.SetUnhautorizedResponse();
             }
 
             JwtSecurityToken jwtSecurityToken = await GenerateToken(user);

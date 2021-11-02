@@ -26,7 +26,7 @@ namespace GloboEvent.Identity
             services.AddDbContext<GloboEventIdentityDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("GloboTicketIdentityConnectionString"),
                 b => b.MigrationsAssembly(typeof(GloboEventIdentityDbContext).Assembly.FullName)));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = true)
                 .AddEntityFrameworkStores<GloboEventIdentityDbContext>().AddDefaultTokenProviders();
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();

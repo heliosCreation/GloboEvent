@@ -103,5 +103,34 @@ namespace GloboEvent.Api.IntegrationTest
                 IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
             }
         }
+
+        public static class AccountTools
+        {
+            public class RegisterValidationTest : IEnumerable<object[]>
+            {
+                private readonly List<object[]> _data = new List<object[]>
+                {
+                    new object[] { "","Doe","JohnDoe","JohnDoe@gmail.com","Pwd12345!"},//Check Required fields
+                    new object[] { "John","","JohnDoe","JohnDoe@gmail.com","Pwd12345!"},
+                    new object[] { "John", "Doe","","JohnDoe@gmail.com","Pwd12345!"},
+                    new object[] { "John", "Doe","JohnDoe","","Pwd12345!"},
+                    new object[] { "John", "Doe","JohnDoe","JohnDoe@gmail.com",""},
+                    new object[] { new string('*', 121), "Doe","JohnDoe","JohnDoe@gmail.com","Pwd12345!"},//Name length
+                    new object[] { "John", new string('*',121),"JohnDoe","JohnDoe@gmail.com","Pwd12345!"},//LastName length
+                    new object[] { "John", new string('*',121),"JohnDoe","JohnDoe@gmail.com","Pwd12345!"},//Username length
+                    new object[] { "John", "Doe", "JohnDoe", string.Concat(new string('*',111),"@gmail.com"), "Pwd12345!" },//Email length
+                    new object[] { "John", "Doe", "JohnDoe", "JohnDoegmail.com","Pwd12345!"},//Email Type
+                    new object[] { "John", "Doe", "JohnDoe", "JohnDoe@gmail.com",string.Concat(new string('*',120),"Pwd12345!")},//PasswordLength
+                    new object[] { "John","Doe","JohnDoe","JohnDoe@gmail.com","pwd12345!"},//Password Uppercase
+                    new object[] { "John","Doe","JohnDoe","JohnDoe@gmail.com","Pwdpwdpwd!"},//Password digit
+                    new object[] { "John","Doe","JohnDoe","JohnDoe@gmail.com","Pwd12345"},//Password Non alphabetical value
+
+                };
+
+                public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+                IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+            }
+        }
     }
 }

@@ -33,7 +33,12 @@ namespace GloboEvent.Application.Responses
             }
             return this;
         }
-
+        public ApiResponse<T> SetUnhautorizedResponse()
+        {
+            Succeeded = false;
+            StatusCode = (int)HttpStatusCode.Unauthorized;
+            return this;
+        }
         public ApiResponse<T> SetInternalServerErrorResponse()
         {
             Succeeded = false;

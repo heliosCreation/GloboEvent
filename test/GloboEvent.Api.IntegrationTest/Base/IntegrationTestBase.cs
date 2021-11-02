@@ -3,6 +3,7 @@ using GloboEvent.API.Contract;
 using GloboEvent.Application.Features.Categories;
 using GloboEvent.Application.Features.Categories.Commands.Create;
 using GloboEvent.Application.Features.Events.Commands.CreateEvent;
+using GloboEvent.Application.Model.Account.Authentification;
 using GloboEvent.Application.Model.Authentification;
 using GloboEvent.Application.Responses;
 using GloboEvent.Identity;

@@ -1,4 +1,5 @@
-﻿using GloboEvent.Application.Model.Authentification;
+﻿using GloboEvent.Application.Model.Account.Authentification;
+using GloboEvent.Application.Model.Account.Registration;
 using GloboEvent.Application.Responses;
 using System.Threading.Tasks;
 

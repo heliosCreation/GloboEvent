@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace GloboEvent.Application.Model.Authentification
+namespace GloboEvent.Application.Model.Account
 {
     public class JwtSettings
     {

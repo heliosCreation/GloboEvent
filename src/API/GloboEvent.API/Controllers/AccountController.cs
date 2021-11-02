@@ -1,6 +1,8 @@
 ﻿using GloboEvent.API.Contract;
 using GloboEvent.Application.Contracts.Identity;
 using GloboEvent.Application.Contrats.Infrastructure;
+using GloboEvent.Application.Model.Account.Authentification;
+using GloboEvent.Application.Model.Account.Registration;
 using GloboEvent.Application.Model.Authentification;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -37,6 +39,7 @@ namespace GloboEvent.API.Controllers
                 var callbackLink = Url.ActionLink("ConfirmEmail", "Account", new { Email = request.Email, code = code });
 
                 await _emailService.SendRegistrationMail(request.Email, callbackLink);
+                response.Data.callbackURL = callbackLink;
             }
             return Ok(response);
         }
