@@ -3,6 +3,7 @@ using GloboEvent.API.Contract;
 using GloboEvent.Application.Features.Categories;
 using GloboEvent.Application.Features.Categories.Commands.Create;
 using GloboEvent.Application.Features.Events.Commands.CreateEvent;
+using GloboEvent.Application.Model.Account.Authentification;
 using GloboEvent.Application.Model.Authentification;
 using GloboEvent.Application.Responses;
 using GloboEvent.Identity;
@@ -47,21 +48,19 @@ namespace GloboEvent.Api.IntegrationTest.Base
 
                     builder.ConfigureServices(services =>
                     {
-                        //Remove the DbContext service from the original startup
+                        //Remove the Data DbContext service from the original startup
                         services.RemoveAll(typeof(DbContextOptions<GloboEventDbContext>));
-                        //Add our test db
-                        var connectionString = _configuration.GetConnectionString("IntegrationData").Replace("{name}",Guid.NewGuid().ToString());
+                        //Add our test data db
+                        var dataConnectionString = _configuration.GetConnectionString("IntegrationData").Replace("{name}",Guid.NewGuid().ToString());
                         services.AddDbContext<GloboEventDbContext>(
-                           opt => opt.UseSqlServer(connectionString,
-                           b => b.MigrationsAssembly(typeof(GloboEventDbContext).Assembly.FullName))
-   );
+                           opt => opt.UseSqlServer(dataConnectionString,
+                           b => b.MigrationsAssembly(typeof(GloboEventDbContext).Assembly.FullName)));
 
-                        services.RemoveAll(typeof(GloboEventIdentityDbContext));
-                        services.AddDbContext<GloboEventIdentityDbContext>(options =>
-                        {
-                            options.UseInMemoryDatabase(Guid.NewGuid().ToString(), new InMemoryDatabaseRoot());
-                        });
-
+                        services.RemoveAll(typeof(DbContextOptions<GloboEventIdentityDbContext>));
+                        var identityConnectionString = _configuration.GetConnectionString("IntegrationIdentity").Replace("{name}", Guid.NewGuid().ToString());
+                        services.AddDbContext<GloboEventIdentityDbContext>(
+                           opt => opt.UseSqlServer(identityConnectionString,
+                           b => b.MigrationsAssembly(typeof(GloboEventIdentityDbContext).Assembly.FullName)));
                     });
                 });
 
@@ -74,8 +73,13 @@ namespace GloboEvent.Api.IntegrationTest.Base
             using var serviceScope = _serviceProvider.CreateScope();
 
             var dataContext = serviceScope.ServiceProvider.GetRequiredService<GloboEventDbContext>();
+            var identityContext = serviceScope.ServiceProvider.GetRequiredService<GloboEventIdentityDbContext>();
+
             dataContext.Database.Migrate();
-            var res = dataContext.Database.EnsureCreated();
+            identityContext.Database.Migrate();
+
+            dataContext.Database.EnsureCreated();
+            identityContext.Database.EnsureCreated();
         }
 
 
@@ -95,7 +99,7 @@ namespace GloboEvent.Api.IntegrationTest.Base
             var response = await TestClient.PostAsJsonAsync(Account.Authenticate, new AuthenticationRequest
             {
                 Email = "john@gmail.com",
-                Password = "123Pa$$word!"
+                Password = "Pwd12345!"
             });
 
             var content = await response.Content.ReadAsAsync<ApiResponse<AuthenticationResponse>>();
@@ -105,9 +109,12 @@ namespace GloboEvent.Api.IntegrationTest.Base
         public void Dispose()
         {
             using var serviceScope = _serviceProvider.CreateScope();
+
             var dataContext = serviceScope.ServiceProvider.GetRequiredService<GloboEventDbContext>();
+            var identityContext = serviceScope.ServiceProvider.GetRequiredService<GloboEventIdentityDbContext>();
 
             dataContext.Database.EnsureDeleted();
+            identityContext.Database.EnsureDeleted();
         }
     }
 }

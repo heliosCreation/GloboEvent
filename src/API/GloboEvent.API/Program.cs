@@ -19,32 +19,6 @@ namespace GloboEvent.API
         public async static Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-                try
-                {
-                    var context = services.GetRequiredService<GloboEventIdentityDbContext>();
-
-                    context.Database.Migrate();
-                    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-                    await Identity.Seeding.BaseRoles.SeedAsync(userManager, roleManager);
-                    await Identity.Seeding.BaseSuperAdmin.SeedAsync(userManager, roleManager);
-                    await Identity.Seeding.BaseUser.SeedAsync(userManager, roleManager);
-
-                }
-                catch (Exception ex)
-                {
-                    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-
-                    logger.LogError(ex, "An error occurred while migrating or seeding the database.");
-                }
-            }
-
             await host.RunAsync();
         }
 

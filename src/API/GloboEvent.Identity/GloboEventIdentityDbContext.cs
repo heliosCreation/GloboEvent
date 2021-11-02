@@ -1,6 +1,7 @@
 ﻿using GloboEvent.Identity.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace GloboEvent.Identity
 {
@@ -8,6 +9,12 @@ namespace GloboEvent.Identity
     {
         public GloboEventIdentityDbContext(DbContextOptions<GloboEventIdentityDbContext> options) : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }
