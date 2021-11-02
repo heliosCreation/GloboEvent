@@ -1,7 +1,7 @@
 ﻿using GloboEvent.Application.Contracts.Identity;
+using GloboEvent.Application.Model.Account;
 using GloboEvent.Application.Model.Account.Authentification;
 using GloboEvent.Application.Model.Account.Registration;
-using GloboEvent.Application.Model.Authentification;
 using GloboEvent.Application.Responses;
 using GloboEvent.Identity.Models;
 using Microsoft.AspNetCore.Identity;
