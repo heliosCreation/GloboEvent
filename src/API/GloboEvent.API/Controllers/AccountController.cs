@@ -3,6 +3,7 @@ using GloboEvent.Application.Contracts.Identity;
 using GloboEvent.Application.Contrats.Infrastructure;
 using GloboEvent.Application.Model.Account.Authentification;
 using GloboEvent.Application.Model.Account.Registration;
+using GloboEvent.Application.Model.Authentification;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;

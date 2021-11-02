@@ -1,5 +1,5 @@
 ﻿using GloboEvent.Application.Contracts.Identity;
-using GloboEvent.Application.Model.Account;
+using GloboEvent.Application.Model.Authentification;
 using GloboEvent.Identity.Models;
 using GloboEvent.Identity.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace GloboEvent.Identity

@@ -2,16 +2,20 @@
 using GloboEvent.API.Contract;
 using GloboEvent.Application.Features.Categories;
 using GloboEvent.Application.Features.Categories.Commands.Create;
+using GloboEvent.Application.Features.Events.Commands.CreateEvent;
 using GloboEvent.Application.Model.Account.Authentification;
+using GloboEvent.Application.Model.Authentification;
 using GloboEvent.Application.Responses;
 using GloboEvent.Identity;
 using GloboEvent.Persistence;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -47,7 +51,7 @@ namespace GloboEvent.Api.IntegrationTest.Base
                         //Remove the Data DbContext service from the original startup
                         services.RemoveAll(typeof(DbContextOptions<GloboEventDbContext>));
                         //Add our test data db
-                        var dataConnectionString = _configuration.GetConnectionString("IntegrationData").Replace("{name}", Guid.NewGuid().ToString());
+                        var dataConnectionString = _configuration.GetConnectionString("IntegrationData").Replace("{name}",Guid.NewGuid().ToString());
                         services.AddDbContext<GloboEventDbContext>(
                            opt => opt.UseSqlServer(dataConnectionString,
                            b => b.MigrationsAssembly(typeof(GloboEventDbContext).Assembly.FullName)));
