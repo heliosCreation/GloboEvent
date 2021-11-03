@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GloboEvent.Application.UnitTests.Mocks
+namespace GloboEvent.Test.Utilities.Mock
 {
     public class MockBaseExtension<T, I>
         where T : AuditableEntity, new()
@@ -20,35 +20,36 @@ namespace GloboEvent.Application.UnitTests.Mocks
             new T{Id = Guid.Parse(Id2)}
         };
 
+        public Mock<I> MockRepo { get; set; } = new Mock<I>();
+
         public virtual Mock<I> GetEntityRepository()
         {
-            var mockRepo = new Mock<I>();
 
-            mockRepo.Setup(r => r.ListAllAsync()).ReturnsAsync(Entities);
+            MockRepo.Setup(r => r.ListAllAsync()).ReturnsAsync(Entities);
 
-            mockRepo.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Guid id) =>
+            MockRepo.Setup(r => r.GetByIdAsync(It.IsAny<Guid>())).ReturnsAsync((Guid id) =>
             {
                 return Entities.Where(c => c.Id == id).FirstOrDefault();
             });
 
-            mockRepo.Setup(r => r.AddAsync(It.IsAny<T>())).ReturnsAsync((T entity) =>
+            MockRepo.Setup(r => r.AddAsync(It.IsAny<T>())).ReturnsAsync((T entity) =>
             {
                 Entities.Add(entity);
                 return entity;
             });
 
-            mockRepo.Setup(r => r.UpdateAsync(It.IsAny<T>())).Callback((T entity) =>
+            MockRepo.Setup(r => r.UpdateAsync(It.IsAny<T>())).Callback((T entity) =>
             {
                 var entityToUpdate = Entities.Where(c => c.Id == entity.Id).FirstOrDefault();
                 entityToUpdate = entity;
             });
 
-            mockRepo.Setup(r => r.DeleteAsync(It.IsAny<T>())).Callback((T entity) =>
+            MockRepo.Setup(r => r.DeleteAsync(It.IsAny<T>())).Callback((T entity) =>
             {
                 var entityToDelete = Entities.Where(c => c.Id == entity.Id).FirstOrDefault();
                 Entities.Remove(entityToDelete);
             });
-            return mockRepo;
+            return MockRepo;
         }
     }
 }
