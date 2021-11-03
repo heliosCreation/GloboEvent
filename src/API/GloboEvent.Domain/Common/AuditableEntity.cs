@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace GloboEvent.Domain.Common
 {
     public class AuditableEntity
     {
+        public Guid Id { get; set; }
+
         public string CreatedBy { get; set; }
 
         public DateTime CreatedDate { get; set; }

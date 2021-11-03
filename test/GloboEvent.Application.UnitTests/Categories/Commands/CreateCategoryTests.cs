@@ -18,7 +18,7 @@ namespace GloboEvent.Application.UnitTests.Categories.Commands
 
         public CreateCategoryTests()
         {
-            _mockCategoryRepository = RepositoryMocks.GetCategoryRepository();
+            _mockCategoryRepository = new MockCategoryRepository().GetEntityRepository();
 
             var configurationProvider = new MapperConfiguration(cfg =>
             {
@@ -36,7 +36,7 @@ namespace GloboEvent.Application.UnitTests.Categories.Commands
 
             var allCategories = await _mockCategoryRepository.Object.ListAllAsync();
 
-            allCategories.Count.ShouldBe(5);
+            allCategories.Count.ShouldBe(3);
             result.Data.Name.ShouldBe("Test");
         }
     }
