@@ -59,7 +59,7 @@ namespace GloboEvent.Application.UnitTests.Categories.Commands
 
         [Theory]
         [ClassData(typeof(CreateCategoryInvalidCommand))]
-        public async Task Handle_CategoryWhenInValid_IsNotAddedToRepo(string name)
+        public async Task Handle_CategoryWhenInValid_IsNotAddedToRepo_AndContainsErrorsInResponse(string name)
         {
             var command = new CreateCategoryCommand() { Name = name };
             var validationBehavior = new ValidationBehaviour<CreateCategoryCommand, ApiResponse<CategoryVm>>(new List<CreateCategoryCommandValidator>()

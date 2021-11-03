@@ -4,21 +4,18 @@ using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Test.Utilities.DataSet;
 
 namespace GloboEvent.Test.Utilities.Mock
 {
+    using static CategorySet;
     public class MockBaseExtension<T, I>
         where T : AuditableEntity, new()
         where I : class, IAsyncRepository<T>
     {
-        public static string Id1 { get; set; } = "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE";
-        public static string Id2 { get; set; } = "62787623-4C52-43FE-B0C9-B7044FB5929B";
 
-        public List<T> Entities { get; set; } = new List<T>
-        {
-            new T{Id = Guid.Parse(Id1)},
-            new T{Id = Guid.Parse(Id2)}
-        };
+
+        public List<T> Entities { get; set; } = new List<T>();
 
         public Mock<I> MockRepo { get; set; } = new Mock<I>();
 
