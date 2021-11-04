@@ -30,9 +30,10 @@ namespace Test.Utilities.DataSet
         {
             private readonly List<object[]> _data = new List<object[]>
             {
-                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE", new string('*', 5000)},
-                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE","Musicals" },
-                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE","" }
+                new object[] { CategoryId1, new string('*', 101), (int)HttpStatusCode.BadRequest},
+                new object[] { CategoryId1,"Musicals",(int)HttpStatusCode.BadRequest},
+                new object[] { CategoryId1, "",(int)HttpStatusCode.BadRequest },
+                new object[] { Guid.NewGuid().ToString(),"Test", (int)HttpStatusCode.NotFound }
             };
 
             public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
@@ -44,8 +45,8 @@ namespace Test.Utilities.DataSet
         {
             private readonly List<object[]> _data = new List<object[]>
             {
-                new object[] { "62787623-4C52-43FE-B0C9-B7044FB5929B", (int)HttpStatusCode.NotFound},
-                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE",(int) HttpStatusCode.OK},
+                new object[] { Guid.NewGuid(), (int)HttpStatusCode.NotFound},
+                new object[] { CategoryId1,(int) HttpStatusCode.OK},
             };
 
             public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();

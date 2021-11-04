@@ -41,6 +41,7 @@
     <ProjectReference Include="..\..\src\API\GloboEvent.Domain\GloboEvent.Domain.csproj" />
     <ProjectReference Include="..\..\src\API\GloboEvent.Infrastructure\GloboEvent.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\API\GloboEvent.Persistence\GloboEvent.Persistence.csproj" />
+    <ProjectReference Include="..\..\Test.Utilities\Test.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

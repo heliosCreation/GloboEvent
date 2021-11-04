@@ -3,7 +3,6 @@ using GloboEvent.Api.IntegrationTest.Base;
 using GloboEvent.API.Contract;
 using GloboEvent.Application.Features.Categories;
 using GloboEvent.Application.Features.Categories.Commands.Create;
-using GloboEvent.Application.Features.Categories.Commands.Delete;
 using GloboEvent.Application.Features.Categories.Commands.Update;
 using GloboEvent.Application.Features.Categories.Queries.GetCategoryWithEvent;
 using GloboEvent.Application.Responses;
@@ -11,12 +10,13 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Test.Utilities.DataSet;
 using Xunit;
 
 namespace GloboEvent.Api.IntegrationTest.Controllers.Category.Command
 {
-    using static Utils.CategoryTools;
     using static ApiRoutes.Category;
+    using static CategorySet;
     public class CategoryController_CommandsTest : IntegrationTestBase
     {
         public string DefaultCategoryId { get; set; } = "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE";
@@ -55,7 +55,7 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Category.Command
             await AuthenticateAsync();
             var updatedName = "Updated";
 
-            var response = await TestClient.PutAsJsonAsync(Update.Replace("{id}", DefaultCategoryId), new UpdateCategoryCommand {Id = Guid.Parse(DefaultCategoryId), Name = updatedName });
+            var response = await TestClient.PutAsJsonAsync(Update.Replace("{id}", DefaultCategoryId), new UpdateCategoryCommand { Id = Guid.Parse(DefaultCategoryId), Name = updatedName });
             var Getresponse = await TestClient.GetAsync(
                     GetById
                     .Replace("{id}", DefaultCategoryId)
@@ -68,7 +68,7 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Category.Command
         }
         [Theory]
         [ClassData(typeof(UpdateCategoryInvalidCommand))]
-        public async Task UpdateCategory_WithInValidData_ReturnsBadRequest(string id, string data)
+        public async Task UpdateCategory_WithInValidData_AppropriateStatusCode(string id, string data, int status)
         {
             await AuthenticateAsync();
 
@@ -76,7 +76,7 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Category.Command
                 Update.Replace("{id}", id),
                 new UpdateCategoryCommand { Id = Guid.Parse(id), Name = data });
 
-            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+            ((int)response.StatusCode).Should().Be(status);
         }
 
         [Fact]
@@ -98,7 +98,7 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Category.Command
         {
             await AuthenticateAsync();
 
-            var response = await TestClient.DeleteAsync(Delete.Replace("{id}",id));
+            var response = await TestClient.DeleteAsync(Delete.Replace("{id}", id));
 
             ((int)response.StatusCode).Should().Be(result);
 
@@ -109,7 +109,7 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Category.Command
         {
             await AuthenticateAsync();
 
-            await TestClient.DeleteAsync(Delete.Replace("{id}",DefaultCategoryId));
+            await TestClient.DeleteAsync(Delete.Replace("{id}", DefaultCategoryId));
             var response = await TestClient.GetAsync(
                 GetById
                 .Replace("{id}", DefaultCategoryId)
