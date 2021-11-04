@@ -9,6 +9,8 @@ using GloboEvent.Application.UnitTests.Mocks;
 using Moq;
 using Shouldly;
 using System;
+using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Test.Utilities.DataSet;
@@ -51,12 +53,40 @@ namespace GloboEvent.Application.UnitTests.Categories.Queries
         {
             var handler = new GetCategoryWithEventsQueryHandler(_mapper, _mockCategoryRepository.Object);
 
-            var result = await handler.Handle(new GetCategoryWithEventQuery() {IncludeHistory = true, Id = CategoryId1 }, CancellationToken.None);
+            var result = await handler.Handle(new GetCategoryWithEventQuery() { IncludeHistory = true, Id = CategoryId1 }, CancellationToken.None);
 
             result.ShouldBeOfType<ApiResponse<CategoryWithEventsVm>>();
 
             result.Data.ShouldNotBeNull();
+            result.Data.Name.ShouldBe(CategoryName1);
             result.Data.Events.Count.ShouldBe(2);
+        }
+        [Fact]
+        public async Task GetCategoryById_ShouldReturnCategory_WithTodayEvents_WhenAskedTo()
+        {
+            var handler = new GetCategoryWithEventsQueryHandler(_mapper, _mockCategoryRepository.Object);
+
+            var result = await handler.Handle(new GetCategoryWithEventQuery() { IncludeHistory = false, Id = CategoryId1 }, CancellationToken.None);
+
+            result.ShouldBeOfType<ApiResponse<CategoryWithEventsVm>>();
+
+            result.Data.ShouldNotBeNull();
+            result.Data.Name.ShouldBe(CategoryName1);
+            result.Data.Events.Count.ShouldBe(1);
+            result.Data.Events.ToList().ForEach(e => e.Date.Date.ShouldBe(DateTime.Today.Date));
+        }
+
+        [Fact]
+        public async Task GetCategoryById_ShouldReturnNotFound_WhenInvalidIdProvided()
+        {
+            var handler = new GetCategoryWithEventsQueryHandler(_mapper, _mockCategoryRepository.Object);
+
+            var result = await handler.Handle(new GetCategoryWithEventQuery() { IncludeHistory = false, Id = Guid.NewGuid() }, CancellationToken.None);
+
+            result.ShouldBeOfType<ApiResponse<CategoryWithEventsVm>>();
+
+            result.Data.ShouldBeNull();
+            result.StatusCode.ShouldBe((int)HttpStatusCode.NotFound);
         }
     }
 }
