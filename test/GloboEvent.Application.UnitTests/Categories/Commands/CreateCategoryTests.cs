@@ -44,7 +44,7 @@ namespace GloboEvent.Application.UnitTests.Categories.Commands
             var command = new CreateCategoryCommand() { Name = "Test" };
             var validationBehavior = new ValidationBehaviour<CreateCategoryCommand, ApiResponse<CategoryVm>>(new List<CreateCategoryCommandValidator>()
             {
-                new CreateCategoryCommandValidator(_mockCategoryRepository.Object)
+                _validator
             });
             var result = await validationBehavior.Handle(command, CancellationToken.None, () =>
             {

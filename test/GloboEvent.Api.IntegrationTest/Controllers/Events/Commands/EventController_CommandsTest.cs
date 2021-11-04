@@ -57,7 +57,7 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Events.Commands
 
             var response = await TestClient.PutAsJsonAsync(
                 Update.Replace("{id}", DefaultEventId),
-                new UpdateEventCommand { EventId = Guid.Parse(DefaultEventId), Name = "Updated", Price = 1, Date = DateTime.UtcNow.Date.AddDays(1), CategoryId = Guid.Parse(CategoryForUpdateId) });
+                new UpdateEventCommand { Id = Guid.Parse(DefaultEventId), Name = "Updated", Price = 1, Date = DateTime.UtcNow.Date.AddDays(1), CategoryId = Guid.Parse(CategoryForUpdateId) });
 
             response.StatusCode.Should().Be(HttpStatusCode.OK);
         }
@@ -69,7 +69,7 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Events.Commands
 
             var updateResponse = await TestClient.PutAsJsonAsync(
                 Update.Replace("{id}", DefaultEventId),
-                new UpdateEventCommand { EventId = Guid.Parse(DefaultEventId), Name = "Updated", Price = 1, Date = DateTime.UtcNow.Date.AddDays(1), CategoryId = Guid.Parse(CategoryForUpdateId) });
+                new UpdateEventCommand { Id = Guid.Parse(DefaultEventId), Name = "Updated", Price = 1, Date = DateTime.UtcNow.Date.AddDays(1), CategoryId = Guid.Parse(CategoryForUpdateId) });
 
             var response = await TestClient.GetAsync(GetById.Replace("{id}", DefaultEventId));
             var content = await response.Content.ReadAsAsync<ApiResponse<EventDetailVm>>();
@@ -88,7 +88,7 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Events.Commands
 
             var response = await TestClient.PutAsJsonAsync(
                 Update.Replace("{id}",DefaultEventId),
-                new UpdateEventCommand { EventId = Guid.Parse(DefaultEventId), Name = name, Price = price, Date = date, CategoryId = Guid.Parse(categoryId) });
+                new UpdateEventCommand { Id = Guid.Parse(DefaultEventId), Name = name, Price = price, Date = date, CategoryId = Guid.Parse(categoryId) });
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
@@ -100,7 +100,7 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Events.Commands
 
             var response = await TestClient.PutAsJsonAsync(
                 Update.Replace("{id}", DefaultEventId),
-                new UpdateEventCommand { EventId = Guid.Parse(DefaultCategoryId), Name = "Test", Price = 900, Date = DateTime.UtcNow.AddDays(1), CategoryId = Guid.Parse(DefaultCategoryId) });
+                new UpdateEventCommand { Id = Guid.Parse(DefaultCategoryId), Name = "Test", Price = 900, Date = DateTime.UtcNow.AddDays(1), CategoryId = Guid.Parse(DefaultCategoryId) });
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }

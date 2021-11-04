@@ -48,9 +48,15 @@ namespace GloboEvent.Application.UnitTests.Mocks
 
             MockRepo.Setup(r => r.IsNameUnique(It.IsAny<string>())).ReturnsAsync((string name) =>
             {
-                return !Entities.Any(e => e.Name == name);
+                var check = !Entities.Any(e => e.Name == name);
+                return check;
             });
 
+            MockRepo.Setup(r => r.IsNameUniqueForUpdate(It.IsAny<Guid>(), It.IsAny<string>())).ReturnsAsync((Guid id, string name) =>
+            {
+                var check =  !Entities.Any(e => e.Name == name && e.Id != id);
+                return check; 
+            });
             return base.GetEntityRepository();
         }
 
@@ -71,7 +77,7 @@ namespace GloboEvent.Application.UnitTests.Mocks
 
                 new Category
                 {
-                    Id = CategoryId2, Name = CategoryName1,
+                    Id = CategoryId2, Name = CategoryName2,
                     Events = new List<Event>()
                     {
                         new Event { Date = DateTime.Today, CategoryId = CategoryId2 },

@@ -26,6 +26,7 @@ namespace GloboEvent.Application.Features.Categories.Commands.Update
             {
                 return response.setNotFoundResponse($"Category with id {request.Id} was not found");
             }
+            var test = _mapper.Map<Category>(request);
             _mapper.Map(request, category, typeof(UpdateCategoryCommand), typeof(Category));
             await _categoryRepository.UpdateAsync(category);
 

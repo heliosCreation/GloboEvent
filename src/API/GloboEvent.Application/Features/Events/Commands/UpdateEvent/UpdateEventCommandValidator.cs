@@ -39,7 +39,7 @@ namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
 
         private async Task<bool> AreNameAndDateuniqueForUpdate(UpdateEventCommand e, CancellationToken c)
         {
-            return await _eventRepository.IsUniqueNameAndDateForUpdate(e.Name, e.Date, e.EventId);
+            return await _eventRepository.IsUniqueNameAndDateForUpdate(e.Name, e.Date, e.Id);
         }
     }
 }

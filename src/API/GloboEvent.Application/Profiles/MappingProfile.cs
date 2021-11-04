@@ -16,7 +16,6 @@ namespace GloboEvent.Application.Profiles
     {
         public MappingProfile()
         {
-
             #region Events
             CreateMap<Event, EventListVm>().ReverseMap();
 
@@ -28,11 +27,9 @@ namespace GloboEvent.Application.Profiles
 
             CreateMap<Event, EventDto>().ReverseMap();
 
-            CreateMap<CreateEventCommand, Event>()
-                .ForAllOtherMembers(x => x.Ignore());
+            CreateMap<CreateEventCommand, Event>(MemberList.Source);
 
-            CreateMap<UpdateEventCommand, Event>()
-                .ForAllOtherMembers(x => x.Ignore());
+            CreateMap<UpdateEventCommand, Event>(MemberList.Source);
 
             #endregion
 
@@ -42,12 +39,9 @@ namespace GloboEvent.Application.Profiles
             CreateMap<Category, CategoryWithEventsVm>()
                 .ForMember(src => src.Events, opt => opt.MapFrom(src => src.Events));
 
-            CreateMap<CreateCategoryCommand, Category>()
-                .ForAllOtherMembers(x => x.Ignore());
+            CreateMap<CreateCategoryCommand, Category>(MemberList.Source);
 
-
-            CreateMap<UpdateCategoryCommand, Category>()
-                .ForAllOtherMembers(x => x.Ignore());
+            CreateMap<UpdateCategoryCommand, Category>(MemberList.Source);
             #endregion
 
         }

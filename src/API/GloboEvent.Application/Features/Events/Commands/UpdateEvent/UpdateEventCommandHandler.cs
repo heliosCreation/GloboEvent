@@ -28,7 +28,7 @@ namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
         public async Task<ApiResponse<object>> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
             var response = new ApiResponse<object>();
-            var eventToUpdate = await _eventRepository.GetByIdAsync(request.EventId);
+            var eventToUpdate = await _eventRepository.GetByIdAsync(request.Id);
             if (eventToUpdate == null)
             {
                 return response.setNotFoundResponse();
