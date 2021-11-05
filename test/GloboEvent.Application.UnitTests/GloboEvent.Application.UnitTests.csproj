@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\API\GloboEvent.Application\GloboEvent.Application.csproj" />
-    <ProjectReference Include="..\..\Test.Utilities\Test.Utilities.csproj" />
+    <ProjectReference Include="..\UnitTest.Utilities\UnitTest.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

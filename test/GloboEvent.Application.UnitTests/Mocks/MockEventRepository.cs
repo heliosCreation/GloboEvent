@@ -1,11 +1,11 @@
 ﻿using GloboEvent.Application.Contrats.Persistence;
 using GloboEvent.Domain.Entities;
-using GloboEvent.Test.Utilities.Mock;
+using GloboEvent.UnitTest.Utilities.Mock;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Test.Utilities.DataSet;
+using UnitTest.Utilities.DataSet;
 
 namespace GloboEvent.Application.UnitTests.Mocks
 {
@@ -17,7 +17,7 @@ namespace GloboEvent.Application.UnitTests.Mocks
             setEventsData();
 
             MockRepo.Setup(r => r.GetTodayEvents())
-                .ReturnsAsync(()=>
+                .ReturnsAsync(() =>
                 {
                     return Entities.Where(e => e.Date.Date == DateTime.Today.Date).ToList();
                 });

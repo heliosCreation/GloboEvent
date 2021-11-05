@@ -10,13 +10,13 @@ using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Test.Utilities.DataSet;
 using Xunit;
 
 namespace GloboEvent.Api.IntegrationTest.Controllers.Category.Command
 {
     using static ApiRoutes.Category;
-    using static CategorySet;
+    using static GloboEvent.Api.IntegrationTest.Utils.CategoryTools;
+
     public class CategoryController_CommandsTest : IntegrationTestBase
     {
         public string DefaultCategoryId { get; set; } = "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE";

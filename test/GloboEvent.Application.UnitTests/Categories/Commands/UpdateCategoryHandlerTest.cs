@@ -13,12 +13,13 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Test.Utilities.DataSet;
+using UnitTest.Utilities.DataSet;
 using Xunit;
 
 namespace GloboEvent.Application.UnitTests.Categories.Commands
 {
     using static CategorySet;
+
     public class UpdateCategoryHandlerTest
     {
         private readonly IMapper _mapper;

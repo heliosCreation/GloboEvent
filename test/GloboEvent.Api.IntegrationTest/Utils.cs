@@ -13,9 +13,10 @@ namespace GloboEvent.Api.IntegrationTest
             {
                 private readonly List<object[]> _data = new List<object[]>
             {
-                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE", new string('*', 5000)},
-                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE","Musicals" },
-                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE","" }
+                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE", new string('*', 5000), (int)HttpStatusCode.BadRequest},
+                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE","Musicals",(int) HttpStatusCode.BadRequest },
+                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE","", (int)HttpStatusCode.BadRequest},
+                new object[] { Guid.NewGuid(),"Test",(int)HttpStatusCode.NotFound }
             };
 
                 public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();

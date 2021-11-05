@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboEvent.Application.Unit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboEvent.Persistence.IntegrationTest", "test\GloboEvent.Persistence.IntegrationTest\GloboEvent.Persistence.IntegrationTest.csproj", "{ACC62E81-AE80-441F-9FC3-8B026F8294F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Utilities", "Test.Utilities\Test.Utilities.csproj", "{643C8E62-A52C-43D0-B9C3-8310D6096A30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Utilities", "test\UnitTest.Utilities\UnitTest.Utilities.csproj", "{586250B9-F955-4250-93FF-A777872CA86D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,10 +75,10 @@ Global
 		{ACC62E81-AE80-441F-9FC3-8B026F8294F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACC62E81-AE80-441F-9FC3-8B026F8294F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACC62E81-AE80-441F-9FC3-8B026F8294F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{643C8E62-A52C-43D0-B9C3-8310D6096A30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{643C8E62-A52C-43D0-B9C3-8310D6096A30}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{643C8E62-A52C-43D0-B9C3-8310D6096A30}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{643C8E62-A52C-43D0-B9C3-8310D6096A30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{586250B9-F955-4250-93FF-A777872CA86D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{586250B9-F955-4250-93FF-A777872CA86D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{586250B9-F955-4250-93FF-A777872CA86D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{586250B9-F955-4250-93FF-A777872CA86D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -96,7 +96,6 @@ Global
 		{28F7C5F5-EC56-42CA-AE5D-7625E3621147} = {AC193A92-14C0-40BD-A330-CCE2BDC98B7B}
 		{14EC731D-BE27-492C-ADB6-45D9887B7D2C} = {AC193A92-14C0-40BD-A330-CCE2BDC98B7B}
 		{ACC62E81-AE80-441F-9FC3-8B026F8294F7} = {AC193A92-14C0-40BD-A330-CCE2BDC98B7B}
-		{643C8E62-A52C-43D0-B9C3-8310D6096A30} = {AC193A92-14C0-40BD-A330-CCE2BDC98B7B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7BBF561-AF93-4B43-BBAB-1C3F4DD01DF5}

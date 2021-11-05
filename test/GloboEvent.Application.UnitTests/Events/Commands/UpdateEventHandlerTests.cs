@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using GloboEvent.Application.Behavior;
 using GloboEvent.Application.Contrats.Persistence;
-using GloboEvent.Application.Features.Categories.Commands.Update;
 using GloboEvent.Application.Features.Events.Commands.UpdateEvent;
 using GloboEvent.Application.Profiles;
 using GloboEvent.Application.Responses;
@@ -13,7 +12,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Test.Utilities.DataSet;
+using UnitTest.Utilities.DataSet;
 using Xunit;
 
 namespace GloboEvent.Application.UnitTests.Events.Commands
@@ -37,7 +36,7 @@ namespace GloboEvent.Application.UnitTests.Events.Commands
 
             _mockEventRepository = new MockEventRepository().GetEntityRepository();
             _mockCategoryRepository = new MockCategoryRepository().GetEntityRepository();
-            _handler = new UpdateEventCommandHandler(_mapper,_mockEventRepository.Object);
+            _handler = new UpdateEventCommandHandler(_mapper, _mockEventRepository.Object);
             _validator = new UpdateEventCommandValidator(_mockEventRepository.Object, _mockCategoryRepository.Object);
         }
 

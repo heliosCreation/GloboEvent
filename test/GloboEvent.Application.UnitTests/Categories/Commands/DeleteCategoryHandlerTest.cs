@@ -6,11 +6,12 @@ using Shouldly;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using UnitTest.Utilities.DataSet;
 using Xunit;
-using static Test.Utilities.DataSet.CategorySet;
 
 namespace GloboEvent.Application.UnitTests.Categories.Commands
 {
+    using static CategorySet;
     public class DeleteCategoryHandlerTest
     {
         private readonly Mock<ICategoryRepository> _mockCategoryRepository;

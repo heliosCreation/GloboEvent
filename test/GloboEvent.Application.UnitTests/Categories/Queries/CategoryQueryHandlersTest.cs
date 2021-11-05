@@ -13,7 +13,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Test.Utilities.DataSet;
+using UnitTest.Utilities.DataSet;
 using Xunit;
 
 namespace GloboEvent.Application.UnitTests.Categories.Queries

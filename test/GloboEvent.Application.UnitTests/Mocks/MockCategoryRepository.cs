@@ -1,11 +1,11 @@
 ﻿using GloboEvent.Application.Contrats.Persistence;
 using GloboEvent.Domain.Entities;
-using GloboEvent.Test.Utilities.Mock;
+using GloboEvent.UnitTest.Utilities.Mock;
 using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Test.Utilities.DataSet;
+using UnitTest.Utilities.DataSet;
 
 namespace GloboEvent.Application.UnitTests.Mocks
 {
@@ -26,7 +26,7 @@ namespace GloboEvent.Application.UnitTests.Mocks
                 }
                 else
                 {
-                    var result =  Entities
+                    var result = Entities
                     .Where(c => c.Id == id)
                     .FirstOrDefault();
                     if (result != null)
@@ -54,8 +54,8 @@ namespace GloboEvent.Application.UnitTests.Mocks
 
             MockRepo.Setup(r => r.IsNameUniqueForUpdate(It.IsAny<Guid>(), It.IsAny<string>())).ReturnsAsync((Guid id, string name) =>
             {
-                var check =  !Entities.Any(e => e.Name == name && e.Id != id);
-                return check; 
+                var check = !Entities.Any(e => e.Name == name && e.Id != id);
+                return check;
             });
             return base.GetEntityRepository();
         }

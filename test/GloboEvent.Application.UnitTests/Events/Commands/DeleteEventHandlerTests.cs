@@ -7,7 +7,7 @@ using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Test.Utilities.DataSet;
+using UnitTest.Utilities.DataSet;
 using Xunit;
 
 namespace GloboEvent.Application.UnitTests.Events.Commands
@@ -27,7 +27,7 @@ namespace GloboEvent.Application.UnitTests.Events.Commands
         public async Task Handle_ShouldDelete_WhenValidIdProvided()
         {
             var command = new DeleteEventCommand(EventId1);
-            
+
             await _handler.Handle(command, CancellationToken.None);
 
             var target = await _mockEventRepository.Object.GetByIdAsync(EventId1);

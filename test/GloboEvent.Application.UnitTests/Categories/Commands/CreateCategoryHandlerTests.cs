@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using FluentValidation;
 using GloboEvent.Application.Behavior;
 using GloboEvent.Application.Contrats.Persistence;
 using GloboEvent.Application.Features.Categories;
@@ -13,12 +12,11 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Test.Utilities.DataSet;
 using Xunit;
+using static UnitTest.Utilities.DataSet.CategorySet;
 
 namespace GloboEvent.Application.UnitTests.Categories.Commands
 {
-    using static CategorySet;
     public class CreateCategoryHandlerTests
     {
         private readonly IMapper _mapper;
@@ -66,12 +64,12 @@ namespace GloboEvent.Application.UnitTests.Categories.Commands
             {
                 new CreateCategoryCommandValidator(_mockCategoryRepository.Object)
             });
-            var result = await validationBehavior.Handle(command , CancellationToken.None, () =>
-            {
-                return _handler.Handle(command, CancellationToken.None);
-            });
+            var result = await validationBehavior.Handle(command, CancellationToken.None, () =>
+           {
+               return _handler.Handle(command, CancellationToken.None);
+           });
 
-             
+
             var allCategories = await _mockCategoryRepository.Object.ListAllAsync();
 
             allCategories.Count.ShouldBe(2);
