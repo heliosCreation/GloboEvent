@@ -67,9 +67,9 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Events.Commands
         {
             await AuthenticateAsync();
 
-            var updateResponse = await TestClient.PutAsJsonAsync(
-                Update.Replace("{id}", DefaultEventId),
-                new UpdateEventCommand { Id = Guid.Parse(DefaultEventId), Name = "Updated", Price = 1, Date = DateTime.UtcNow.Date.AddDays(1), CategoryId = Guid.Parse(CategoryForUpdateId) });
+            await TestClient.PutAsJsonAsync(
+            Update.Replace("{id}", DefaultEventId),
+            new UpdateEventCommand { Id = Guid.Parse(DefaultEventId), Name = "Updated", Price = 1, Date = DateTime.UtcNow.Date.AddDays(1), CategoryId = Guid.Parse(CategoryForUpdateId) });
 
             var response = await TestClient.GetAsync(GetById.Replace("{id}", DefaultEventId));
             var content = await response.Content.ReadAsAsync<ApiResponse<EventDetailVm>>();

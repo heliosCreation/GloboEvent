@@ -2,6 +2,8 @@
 using GloboEvent.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace GloboEvent.Persistence.Repositories
@@ -19,6 +21,14 @@ namespace GloboEvent.Persistence.Repositories
                 .FirstOrDefaultAsync(e => e.Id == id);
 
             return x; 
+        }
+
+        public async Task<List<Event>> GetTodayEvents()
+        {
+            return await _dbContext.Events
+                .Include(e => e.Category)
+                .Where(e => e.Date.Date == DateTime.Today.Date)
+                .ToListAsync();
         }
 
         public async Task<bool> IsUniqueNameAndDate(string name, DateTime date)

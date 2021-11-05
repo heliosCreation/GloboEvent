@@ -16,6 +16,12 @@ namespace GloboEvent.Application.UnitTests.Mocks
         {
             setEventsData();
 
+            MockRepo.Setup(r => r.GetTodayEvents())
+                .ReturnsAsync(()=>
+                {
+                    return Entities.Where(e => e.Date.Date == DateTime.Today.Date).ToList();
+                });
+
             MockRepo.Setup(r => r.IsUniqueNameAndDate(It.IsAny<string>(), It.IsAny<DateTime>()))
                 .ReturnsAsync((string name, DateTime date) =>
                 {
