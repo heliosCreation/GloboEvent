@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\Test.Utilities\Test.Utilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Events\Commands\" />
+  </ItemGroup>
+
 </Project>

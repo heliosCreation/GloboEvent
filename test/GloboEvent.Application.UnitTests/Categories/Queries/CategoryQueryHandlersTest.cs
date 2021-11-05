@@ -20,12 +20,12 @@ namespace GloboEvent.Application.UnitTests.Categories.Queries
 {
     using static CategorySet;
 
-    public class CategoryQueryHandlerTest
+    public class CategoryQueryHandlersTest
     {
         private readonly IMapper _mapper;
         private readonly Mock<ICategoryRepository> _mockCategoryRepository;
 
-        public CategoryQueryHandlerTest()
+        public CategoryQueryHandlersTest()
         {
             _mockCategoryRepository = new MockCategoryRepository().GetEntityRepository();
             var configurationProvider = new MapperConfiguration(cfg =>
