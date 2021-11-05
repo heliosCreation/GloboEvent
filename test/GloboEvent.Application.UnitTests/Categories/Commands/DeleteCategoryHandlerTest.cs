@@ -11,12 +11,12 @@ using static Test.Utilities.DataSet.CategorySet;
 
 namespace GloboEvent.Application.UnitTests.Categories.Commands
 {
-    public class DeleteCategoryTest
+    public class DeleteCategoryHandlerTest
     {
         private readonly Mock<ICategoryRepository> _mockCategoryRepository;
         private readonly DeleteCategoryCommandHandler _handler;
 
-        public DeleteCategoryTest()
+        public DeleteCategoryHandlerTest()
         {
             _mockCategoryRepository = new MockCategoryRepository().GetEntityRepository();
             _handler = new DeleteCategoryCommandHandler(_mockCategoryRepository.Object);

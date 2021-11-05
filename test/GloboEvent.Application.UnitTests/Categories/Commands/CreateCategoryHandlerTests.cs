@@ -19,13 +19,13 @@ using Xunit;
 namespace GloboEvent.Application.UnitTests.Categories.Commands
 {
     using static CategorySet;
-    public class CreateCategoryTests
+    public class CreateCategoryHandlerTests
     {
         private readonly IMapper _mapper;
         private readonly Mock<ICategoryRepository> _mockCategoryRepository;
         private readonly CreateCategoryCommandHandler _handler;
         private readonly CreateCategoryCommandValidator _validator;
-        public CreateCategoryTests()
+        public CreateCategoryHandlerTests()
         {
             var configurationProvider = new MapperConfiguration(cfg =>
             {

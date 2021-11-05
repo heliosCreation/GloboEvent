@@ -68,13 +68,13 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Category.Command
         }
         [Theory]
         [ClassData(typeof(UpdateCategoryInvalidCommand))]
-        public async Task UpdateCategory_WithInValidData_AppropriateStatusCode(string id, string data, int status)
+        public async Task UpdateCategory_WithInValidData_AppropriateStatusCode(Guid id, string data, int status)
         {
             await AuthenticateAsync();
 
             var response = await TestClient.PutAsJsonAsync(
-                Update.Replace("{id}", id),
-                new UpdateCategoryCommand { Id = Guid.Parse(id), Name = data });
+                Update.Replace("{id}", id.ToString()),
+                new UpdateCategoryCommand { Id = id, Name = data });
 
             ((int)response.StatusCode).Should().Be(status);
         }

@@ -10,7 +10,6 @@ using Moq;
 using Shouldly;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,14 +19,14 @@ using Xunit;
 namespace GloboEvent.Application.UnitTests.Categories.Commands
 {
     using static CategorySet;
-    public class UpdateCategoryTest
+    public class UpdateCategoryHandlerTest
     {
         private readonly IMapper _mapper;
         private readonly Mock<ICategoryRepository> _mockCategoryRepository;
         private readonly UpdateCategoryCommandHandler _handler;
         private readonly UpdateCategoryCommandValidator _validator;
 
-        public UpdateCategoryTest()
+        public UpdateCategoryHandlerTest()
         {
             var configurationProvider = new MapperConfiguration(cfg =>
             {
