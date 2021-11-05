@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using GloboEvent.Application.Contrats.Persistence;
+using GloboEvent.Domain.Entities;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,10 +10,12 @@ namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
     public class UpdateEventCommandValidator : AbstractValidator<UpdateEventCommand>
     {
         private readonly IEventRepository _eventRepository;
+        private readonly IAsyncRepository<Category> _categoryRepository;
 
-        public UpdateEventCommandValidator(IEventRepository eventRepository)
+        public UpdateEventCommandValidator(IEventRepository eventRepository, IAsyncRepository<Category> categoryRepository)
         {
             _eventRepository = eventRepository ?? throw new ArgumentNullException(nameof(eventRepository));
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
 
             RuleFor(p => p.Name)
                 .NotNull()
@@ -33,13 +36,18 @@ namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
                 .GreaterThan(0);
 
             RuleFor(e => e)
-                .MustAsync(AreNameAndDateuniqueForUpdate).WithMessage("An event with the same name and date already exist.");
-            _eventRepository = eventRepository;
+                .MustAsync(AreNameAndDateuniqueForUpdate).WithMessage("An event with the same name and date already exist.")
+                .MustAsync(CategoryExists).WithMessage("Category with this {PropertyName} was not found");
         }
 
         private async Task<bool> AreNameAndDateuniqueForUpdate(UpdateEventCommand e, CancellationToken c)
         {
-            return await _eventRepository.IsUniqueNameAndDateForUpdate(e.Name, e.Date, e.EventId);
+            return await _eventRepository.IsUniqueNameAndDateForUpdate(e.Name, e.Date, e.Id);
+        }
+
+        private async Task<bool> CategoryExists(UpdateEventCommand e, CancellationToken c)
+        {
+            return await _categoryRepository.GetByIdAsync(e.CategoryId) != null;
         }
     }
 }

@@ -19,12 +19,12 @@ namespace GloboEvent.API.Controllers
     [Authorize]
     public class EventController : ApiController
     {
-        [HttpGet(GetAll, Name = "Get all Event")]
+        [HttpGet(GetAll, Name = "Get all Event - Can be filtered to today's event with parameter.")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(bool includeHistory)
         {
-            var dtos = await Mediator.Send(new GetEventListQuery());
+            var dtos = await Mediator.Send(new GetEventListQuery(includeHistory));
             return Ok(dtos);
         }
 

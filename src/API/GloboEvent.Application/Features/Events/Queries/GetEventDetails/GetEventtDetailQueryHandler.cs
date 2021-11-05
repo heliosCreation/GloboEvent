@@ -15,16 +15,13 @@ namespace GloboEvent.Application.Features.Events.Queries.GetEventDetails
     {
         private readonly IMapper _mapper;
         private readonly IEventRepository _eventRepository;
-        private readonly IAsyncRepository<Category> _categoryRepository;
 
         public GetEventtDetailQueryHandler(
             IMapper mapper,
-            IEventRepository eventRepository,
-            IAsyncRepository<Category> categoryRepository)
+            IEventRepository eventRepository)
         {
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _eventRepository = eventRepository ?? throw new ArgumentNullException(nameof(eventRepository));
-            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
         }
 
         public async Task<ApiResponse<EventDetailVm>> Handle(GetEventDetailsQuery request, CancellationToken cancellationToken)

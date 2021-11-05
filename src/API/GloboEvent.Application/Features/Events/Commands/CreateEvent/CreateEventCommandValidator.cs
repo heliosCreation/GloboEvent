@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
 using GloboEvent.Application.Contrats.Persistence;
+using GloboEvent.Domain.Entities;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,10 +10,12 @@ namespace GloboEvent.Application.Features.Events.Commands.CreateEvent
     public class CreateEventCommandValidator : AbstractValidator<CreateEventCommand>
     {
         private readonly IEventRepository _eventRepository;
+        private readonly IAsyncRepository<Category> _categoryRepository;
 
-        public CreateEventCommandValidator(IEventRepository eventRepository)
+        public CreateEventCommandValidator(IEventRepository eventRepository, IAsyncRepository<Category> categoryRepository)
         {
             _eventRepository = eventRepository ?? throw new ArgumentNullException(nameof(eventRepository));
+            _categoryRepository = categoryRepository ?? throw new ArgumentNullException(nameof(categoryRepository));
 
             RuleFor(p => p.Name)
                 .NotNull()
@@ -32,18 +33,24 @@ namespace GloboEvent.Application.Features.Events.Commands.CreateEvent
             RuleFor(p => p.Price)
                 .NotNull()
                 .NotEmpty().WithMessage("{PropertyName} is required")
-                .GreaterThan(0);
+                .GreaterThan(-1);
 
             RuleFor(p => p.CategoryId)
                 .NotNull().WithMessage("{PropertyName} is required");
 
             RuleFor(e => e)
-                .MustAsync(AreNameAndDateunique).WithMessage("An event with the same name and date already exist.");
+                .MustAsync(AreNameAndDateunique).WithMessage("An event with the same name and date already exist.")
+                .MustAsync(CategoryExists).WithMessage("Category with this {PropertyName} was not found");
+
         }
 
-        private async Task<bool>AreNameAndDateunique(CreateEventCommand e, CancellationToken c)
+        private async Task<bool> AreNameAndDateunique(CreateEventCommand e, CancellationToken c)
         {
             return await _eventRepository.IsUniqueNameAndDate(e.Name, e.Date);
+        }
+        private async Task<bool> CategoryExists(CreateEventCommand e, CancellationToken c)
+        {
+            return await _categoryRepository.GetByIdAsync(e.CategoryId) != null;
         }
     }
 }

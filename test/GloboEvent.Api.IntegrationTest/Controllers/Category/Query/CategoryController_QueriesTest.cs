@@ -105,7 +105,6 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Category.Query
                 .Replace("{id}", WrongCategoryId)
                 .Replace("{includeHistory}", false.ToString())
                 ); 
-            var content = await response.Content.ReadAsAsync<ApiResponse<CategoryWithEventsVm>>();
 
             response.StatusCode.Should().Be(HttpStatusCode.NotFound);
         }
@@ -120,8 +119,6 @@ namespace GloboEvent.Api.IntegrationTest.Controllers.Category.Query
                 .Replace("{id}", "WrongData")
                 .Replace("{includeHistory}", false.ToString())
                 );
-            var content = await response.Content.ReadAsAsync<ApiResponse<CategoryWithEventsVm>>();
-
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         }
         #endregion

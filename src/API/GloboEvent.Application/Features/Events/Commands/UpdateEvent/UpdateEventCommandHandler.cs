@@ -1,17 +1,15 @@
 ﻿using AutoMapper;
-using GloboEvent.Application.Contracts.Signature;
 using GloboEvent.Application.Contrats.Persistence;
 using GloboEvent.Application.Responses;
 using GloboEvent.Domain.Entities;
 using MediatR;
 using System;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
 {
-    public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand, ApiResponse<object>>, IValidatable
+    public class UpdateEventCommandHandler : IRequestHandler<UpdateEventCommand, ApiResponse<object>>
     {
         private readonly IMapper _mapper;
         private readonly IAsyncRepository<Event> _eventRepository;
@@ -28,7 +26,7 @@ namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
         public async Task<ApiResponse<object>> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
         {
             var response = new ApiResponse<object>();
-            var eventToUpdate = await _eventRepository.GetByIdAsync(request.EventId);
+            var eventToUpdate = await _eventRepository.GetByIdAsync(request.Id);
             if (eventToUpdate == null)
             {
                 return response.setNotFoundResponse();

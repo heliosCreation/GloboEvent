@@ -1,8 +1,6 @@
 ﻿using FluentValidation;
 using GloboEvent.Application.Contrats.Persistence;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,7 +25,7 @@ namespace GloboEvent.Application.Features.Categories.Commands.Update
 
         private async Task<bool> IsNameUniqueForUpdate(UpdateCategoryCommand e, CancellationToken c)
         {
-            return await _categoryRepository.IsNameUniqueForUpdate(e.Id,e.Name);
+            return await _categoryRepository.IsNameUniqueForUpdate(e.Id, e.Name);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using GloboEvent.Application.Contracts.Signature;
 using GloboEvent.Application.Contrats.Persistence;
 using GloboEvent.Application.Responses;
 using GloboEvent.Domain.Entities;

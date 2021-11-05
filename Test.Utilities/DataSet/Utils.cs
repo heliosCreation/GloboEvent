@@ -13,10 +13,9 @@ namespace GloboEvent.Api.IntegrationTest
             {
                 private readonly List<object[]> _data = new List<object[]>
             {
-                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE", new string('*', 5000), (int)HttpStatusCode.BadRequest},
-                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE","Musicals",(int) HttpStatusCode.BadRequest },
-                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE","", (int)HttpStatusCode.BadRequest},
-                new object[] { Guid.NewGuid(),"Test",(int)HttpStatusCode.NotFound }
+                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE", new string('*', 5000)},
+                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE","Musicals" },
+                new object[] { "B0788D2F-8003-43C1-92A4-EDC76A7C5DDE","" }
             };
 
                 public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
@@ -79,10 +78,9 @@ namespace GloboEvent.Api.IntegrationTest
                     new object[] { "", 900, DateTime.Now.AddDays(1),"B0788D2F-8003-43C1-92A4-EDC76A7C5DDE"},//Bad name
                     new object[] {  new string('*', 51), 900, DateTime.Now.AddDays(1),"B0788D2F-8003-43C1-92A4-EDC76A7C5DDE"},
                     new object[] { "Clash of the DJs", 900, DateTime.UtcNow.Date,"B0788D2F-8003-43C1-92A4-EDC76A7C5DDE"}, //Same event same day
-                    new object[] { "", 0, DateTime.Now.AddDays(1),"B0788D2F-8003-43C1-92A4-EDC76A7C5DDE"},//Bad Price
-                    new object[] { "", -1, DateTime.Now.AddDays(1),"B0788D2F-8003-43C1-92A4-EDC76A7C5DDE"},
-                    new object[] { "", 900, DateTime.Now.AddDays(-1),"B0788D2F-8003-43C1-92A4-EDC76A7C5DDE"},//Wrong Date
-                    new object[] { "", 900, DateTime.Now.AddDays(1),"EE272F8B-6096-4CB6-8625-BB4BB2D89E8B"}, // Wrong CategoryId
+                    new object[] { "Test", -1, DateTime.Now.AddDays(1),"B0788D2F-8003-43C1-92A4-EDC76A7C5DDE"},//Bad Price
+                    new object[] { "Test", 900, DateTime.Now.AddDays(-1),"B0788D2F-8003-43C1-92A4-EDC76A7C5DDE"},//Wrong Date
+                    new object[] { "Test", 900, DateTime.Now.AddDays(1),"EE272F8B-6096-4CB6-8625-BB4BB2D89E8B"}, // Wrong CategoryId
 
                 };
 

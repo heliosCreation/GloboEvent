@@ -13,11 +13,11 @@ namespace GloboEvent.Application.Features.Events.Queries.GetEventList
     public class GetEventListQueryHandler : IRequestHandler<GetEventListQuery, ApiResponse<EventListVm>>
     {
         private readonly IMapper _mapper;
-        private readonly IAsyncRepository<Event> _eventRepository;
+        private readonly IEventRepository _eventRepository;
 
         public GetEventListQueryHandler(
             IMapper mapper,
-            IAsyncRepository<Event> eventRepository)
+             IEventRepository eventRepository)
         {
             _mapper = mapper;
             _eventRepository = eventRepository;
@@ -25,7 +25,15 @@ namespace GloboEvent.Application.Features.Events.Queries.GetEventList
         public async Task<ApiResponse<EventListVm>> Handle(GetEventListQuery request, CancellationToken cancellationToken)
         {
             var response = new ApiResponse<EventListVm>();
-            var allEvent = (await _eventRepository.ListAllAsync()).OrderBy(x => x.Date);
+            var allEvent =  new List<Event>();
+            if (request.IncludeHistory)
+            {
+                 allEvent = await _eventRepository.GetTodayEvents();
+            }
+            else
+            {
+                allEvent = (await _eventRepository.ListAllAsync()).OrderBy(x => x.Date).ToList();
+            }
             response.DataList = _mapper.Map<List<EventListVm>>(allEvent);
             return response;
         }

@@ -6,7 +6,7 @@ namespace GloboEvent.Application.Features.Events.Commands.UpdateEvent
 {
     public class UpdateEventCommand : IRequest<ApiResponse<object>>
     {
-        public Guid EventId { get; set; }
+        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
